@@ -1,0 +1,99 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-white: #FFFFFF;
+  --color-ivory: #F7F4EC;
+  --color-gold: #C6A15B;
+  --color-gold-hover: #A9843E;
+  --color-charcoal: #242321;
+  --color-warm-grey: #77736A;
+  --color-beige-border: #E8E1D2;
+}
+
+@layer base {
+  * {
+    border-color: #E8E1D2;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #FFFFFF;
+    color: #242321;
+  }
+
+  body {
+    background-color: #FFFFFF;
+    color: #242321;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    overflow-x: hidden;
+  }
+
+  /* Accessibility focus ring */
+  *:focus-visible {
+    outline: 2px solid #C6A15B;
+    outline-offset: 2px;
+  }
+
+  /* Respect reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* Editorial container */
+  .editorial-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Refined typography */
+  .heading-hero {
+    @apply text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-kernel-charcoal leading-[1.12];
+  }
+
+  .heading-section {
+    @apply text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-kernel-charcoal;
+  }
+
+  .subheading-editorial {
+    @apply text-lg sm:text-xl text-kernel-muted leading-relaxed font-normal;
+  }
+
+  /* Gold button primary */
+  .btn-gold {
+    @apply inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-medium tracking-wide bg-kernel-gold text-white hover:bg-kernel-gold-hover transition-all duration-200 shadow-sm active:scale-[0.99] disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  .btn-gold-outline {
+    @apply inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-medium tracking-wide border border-kernel-gold text-kernel-charcoal hover:bg-kernel-gold/10 transition-all duration-200 active:scale-[0.99] disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center px-4 py-2 rounded-lg text-sm font-medium text-kernel-charcoal hover:bg-kernel-ivory transition-all duration-200 disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  /* Editorial Card */
+  .editorial-card {
+    @apply bg-white border border-kernel-border rounded-xl transition-all duration-200 hover:border-kernel-gold/60 hover:shadow-card;
+  }
+}
+
+/* Custom scrollbar for horizontal carousels */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
