@@ -307,7 +307,7 @@ In this essay, we outline a sustainable framework for cross-pollinating knowledg
     description: "Battery chemistry, charging infrastructure bottlenecks, rare earth supply chains, and the engineering behind the automotive transformation.",
     body: `The transition to electric mobility is not just swapping internal combustion engines for electric motors; it is a fundamental reconfiguration of the global electrical grid, battery supply chains, and software architecture. We examine solid-state battery progress, vehicle-to-grid integration, and lifecycle carbon metrics.`,
     content_type: "video",
-    thumbnail_url: "https://images.unsplash.com/photo-1558441719-8b489c63f732?auto=format&fit=crop&w=1200&q=80",
+    thumbnail_url: "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
     media_url: "https://www.youtube.com/watch?v=F3zWw4PzXpY",
     duration_seconds: 1740,
     publication_date: "2024-09-14",

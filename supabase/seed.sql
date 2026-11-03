@@ -239,7 +239,7 @@ INSERT INTO content (
   'Battery chemistry, charging infrastructure bottlenecks, rare earth supply chains, and the engineering behind the automotive transformation.',
   'The transition to electric mobility is not just swapping internal combustion engines for electric motors; it is a fundamental reconfiguration of the global electrical grid, battery supply chains, and software architecture. We examine solid-state battery progress, vehicle-to-grid integration, and lifecycle carbon metrics.',
   'video',
-  'https://images.unsplash.com/photo-1558441719-8b489c63f732?auto=format&fit=crop&w=1200&q=80',
+  'https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80',
   'https://www.youtube.com/watch?v=F3zWw4PzXpY',
   1740,
   CURRENT_DATE - INTERVAL '48 days',
