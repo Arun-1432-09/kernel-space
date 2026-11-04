@@ -176,6 +176,7 @@ export function ContentTable({ initialContent }: ContentTableProps) {
               <option value="all">All Statuses</option>
               <option value="published">Published</option>
               <option value="draft">Draft</option>
+              <option value="coming_soon">Coming Soon</option>
             </select>
           </div>
 
@@ -186,13 +187,14 @@ export function ContentTable({ initialContent }: ContentTableProps) {
                 setTypeFilter(e.target.value as any);
                 setCurrentPage(1);
               }}
-              className="py-1.5 px-3 rounded-lg border border-kernel-border text-xs text-kernel-charcoal bg-white focus:border-kernel-gold"
+              className="py-1.5 px-3 rounded-lg border border-kernel-border text-xs text-kernel-charcoal bg-white focus:border-kernel-gold capitalize"
             >
               <option value="all">All Formats</option>
+              <option value="article">Article</option>
+              <option value="explainer">Explainer</option>
               <option value="video">Video</option>
               <option value="podcast">Podcast</option>
-              <option value="explainer">Explainer</option>
-              <option value="article">Article</option>
+              <option value="deep_dive">Visual Deep-Dive</option>
             </select>
           </div>
 

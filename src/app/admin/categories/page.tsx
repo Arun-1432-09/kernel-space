@@ -97,7 +97,26 @@ export default function AdminCategoriesPage() {
     }
   };
 
+  const CORE_CATEGORY_SLUGS = [
+    "business-and-startups",
+    "technology-and-ai",
+    "psychology-and-mental-health",
+    "student-life-and-gen-z-culture",
+    "design-and-creativity",
+    "travel-and-experiences",
+    "aviation-and-automotive",
+    "finance-and-economics",
+  ];
+
   const handleDelete = async (cat: Category) => {
+    if (CORE_CATEGORY_SLUGS.includes(cat.slug)) {
+      setFeedback({
+        type: "error",
+        text: `Cannot delete "${cat.name}": The 8 foundational disciplines form the core architecture of Kernel Space and cannot be removed.`,
+      });
+      return;
+    }
+
     if (!confirm(`Are you sure you want to delete category "${cat.name}"?`)) return;
 
     const res = await deleteCategory(cat.id);
@@ -190,13 +209,22 @@ export default function AdminCategoriesPage() {
                     >
                       <Edit2 className="w-3.5 h-3.5" />
                     </button>
-                    <button
-                      onClick={() => handleDelete(cat)}
-                      className="p-1.5 text-kernel-muted hover:text-red-600 rounded hover:bg-red-50"
-                      title="Delete Category"
-                    >
-                      <Trash2 className="w-3.5 h-3.5" />
-                    </button>
+                    {CORE_CATEGORY_SLUGS.includes(cat.slug) ? (
+                      <span
+                        className="text-[10px] text-zinc-600 bg-zinc-100 px-2 py-0.5 rounded font-medium cursor-help"
+                        title="Core discipline cannot be deleted"
+                      >
+                        Core
+                      </span>
+                    ) : (
+                      <button
+                        onClick={() => handleDelete(cat)}
+                        className="p-1.5 text-kernel-muted hover:text-red-600 rounded hover:bg-red-50"
+                        title="Delete Category"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    )}
                   </div>
                 </td>
               </tr>

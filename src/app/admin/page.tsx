@@ -71,7 +71,7 @@ export default async function AdminOverviewPage() {
       )}
 
       {/* Key Stats Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
         <div className="editorial-card p-5 bg-white">
           <div className="flex items-center justify-between text-kernel-muted mb-2">
             <span className="text-xs font-semibold uppercase tracking-wider">Total Content</span>
@@ -92,11 +92,15 @@ export default async function AdminOverviewPage() {
 
         <div className="editorial-card p-5 bg-white">
           <div className="flex items-center justify-between text-kernel-muted mb-2">
-            <span className="text-xs font-semibold uppercase tracking-wider">Drafts</span>
+            <span className="text-xs font-semibold uppercase tracking-wider">Drafts & Teasers</span>
             <Clock className="w-4 h-4 text-amber-600" />
           </div>
-          <div className="text-3xl font-bold text-kernel-charcoal">{stats.draft}</div>
-          <span className="text-[11px] text-amber-700 mt-1 block">In review / draft state</span>
+          <div className="text-3xl font-bold text-kernel-charcoal">
+            {stats.draft + stats.comingSoon}
+          </div>
+          <span className="text-[11px] text-amber-700 mt-1 block">
+            {stats.draft} draft • {stats.comingSoon} coming soon
+          </span>
         </div>
 
         <div className="editorial-card p-5 bg-white">
@@ -105,8 +109,24 @@ export default async function AdminOverviewPage() {
             <FolderTree className="w-4 h-4 text-kernel-gold" />
           </div>
           <div className="text-3xl font-bold text-kernel-charcoal">{stats.categoryCount}</div>
-          <span className="text-[11px] text-kernel-muted mt-1 block">Knowledge domains</span>
+          <span className="text-[11px] text-kernel-muted mt-1 block">01-08 Disciplines</span>
         </div>
+
+        <Link
+          href="/admin/pitches"
+          className="editorial-card p-5 bg-white hover:border-kernel-gold transition-colors block group"
+        >
+          <div className="flex items-center justify-between text-kernel-muted mb-2">
+            <span className="text-xs font-semibold uppercase tracking-wider group-hover:text-kernel-gold">
+              Topic Pitches
+            </span>
+            <Sparkles className="w-4 h-4 text-kernel-gold" />
+          </div>
+          <div className="text-3xl font-bold text-kernel-charcoal">{stats.pendingPitches}</div>
+          <span className="text-[11px] text-kernel-gold font-medium mt-1 block">
+            Review community ideas →
+          </span>
+        </Link>
       </div>
 
       {/* Breakdown by Content Type */}
@@ -147,6 +167,14 @@ export default async function AdminOverviewPage() {
                 Articles
               </span>
               <span className="font-bold text-kernel-charcoal">{stats.byType.article}</span>
+            </div>
+
+            <div className="flex items-center justify-between text-xs">
+              <span className="flex items-center gap-2 text-kernel-charcoal font-medium">
+                <Sparkles className="w-3.5 h-3.5 text-kernel-gold" />
+                Deep Dives
+              </span>
+              <span className="font-bold text-kernel-charcoal">{stats.byType.deep_dive}</span>
             </div>
           </div>
 

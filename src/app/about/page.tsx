@@ -1,246 +1,290 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { getTeamMembers, getSiteSettings } from "@/lib/data/queries";
-import { Compass, Sparkles, MessageSquareHeart, ShieldCheck, Mail, ArrowRight } from "lucide-react";
+import { getTeamMembers } from "@/lib/data/queries";
+import { Compass, Sparkles, MessageSquare, ShieldCheck, ArrowRight, Lightbulb, Users } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "About & Philosophy",
+  title: "About Kernel Space — Our Story, Philosophy & Method",
   description:
-    "Why Kernel Space exists: curiosity before expertise, raw conversations, and visual breakdowns exploring the world beneath the surface.",
+    "Why Kernel Space exists: curiosity before expertise, genuine conversations, and multidisciplinary exploration.",
 };
 
 export const revalidate = 60;
 
+const FIVE_DIFFERENCES = [
+  {
+    num: "01",
+    title: "Genuine Curiosity",
+    description: "We want to understand these topics, not fake interest for views or algorithms.",
+  },
+  {
+    num: "02",
+    title: "Multi-Disciplinary Thinking",
+    description: "Ideas connected across fields, not kept locked away in institutional silos.",
+  },
+  {
+    num: "03",
+    title: "Format Flexibility",
+    description: "Conversations, visuals, deep essays or all three—whatever best serves the idea.",
+  },
+  {
+    num: "04",
+    title: "Raw Authenticity",
+    description: "Conversations that feel real because they are real. Pauses, tangents, and admitting uncertainty.",
+  },
+  {
+    num: "05",
+    title: "A Gen-Z Perspective on Timeless Topics",
+    description: "Young voices exploring questions that matter to every generation.",
+  },
+];
+
+const FIVE_STEPS = [
+  {
+    step: "01",
+    title: "Ideation",
+    text: "Anyone can pitch topics. We discuss together: what is the core question behind this?",
+  },
+  {
+    step: "02",
+    title: "Research",
+    text: "Dig deep for primary sources, interesting statistics, contrarian viewpoints, and real-world examples.",
+  },
+  {
+    step: "03",
+    title: "Format Decision",
+    text: "Does this work better as a free-flowing dialogue or a visual breakdown? Sometimes both.",
+  },
+  {
+    step: "04",
+    title: "Production",
+    text: "Record, edit, polish—but always preserve the humanity and authentic messiness of thought.",
+  },
+  {
+    step: "05",
+    title: "Distribution",
+    text: "YouTube, Spotify, Apple Podcasts, Instagram, and LinkedIn—meeting curious minds where they are.",
+  },
+];
+
 export default async function AboutPage() {
-  const [teamMembers, settings] = await Promise.all([
-    getTeamMembers(),
-    getSiteSettings(),
-  ]);
+  const teamMembers = await getTeamMembers();
 
   return (
     <div className="py-12 sm:py-20 space-y-20 sm:space-y-28">
-      {/* 1. Header & Origin Manifesto */}
+      {/* 1. Header & Manifesto */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl space-y-4">
-          <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-kernel-gold">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-kernel-border text-[11px] font-bold uppercase tracking-[0.2em] text-gold-accent">
             <Compass className="w-3.5 h-3.5 text-kernel-gold" />
-            <span>Our Origin & Purpose</span>
+            <span>Story & Philosophy</span>
           </div>
           <h1 className="heading-hero">
-            A space for minds that refuse to stay on the surface.
+            We explore ideas, break down complex topics and have real conversations that matter.
           </h1>
-          <p className="subheading-editorial text-lg sm:text-xl pt-2">
-            This isn't another generic content network. Kernel Space was founded on a simple conviction: learning should be as captivating as it is rigorous, and the most transformative ideas live at the intersections between disciplines.
+          <p className="subheading-editorial text-lg sm:text-xl pt-2 font-sans">
+            No scripts. No pretense. Just genuine curiosity meeting thorough preparation.
           </p>
         </div>
 
         <div className="mt-12 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          <div className="lg:col-span-7 space-y-6 text-base text-kernel-charcoal leading-relaxed font-normal">
+          <div className="lg:col-span-7 space-y-5 text-sm sm:text-base text-kernel-charcoal leading-relaxed">
             <p>
-              We live in an era overwhelmed by high-velocity hot takes and algorithmic rage-bait. Complex geopolitical, economic, and technological transformations are frequently compressed into thirty-second clips designed for dopamine spikes rather than comprehension.
+              Kernel Space is an independent media and knowledge platform built for people who ask "why" and "how". We live where curiosity meets depth—whether through free-flowing podcast conversations, animated breakdowns, or visual deep-dives into topics that genuinely fascinate us.
             </p>
             <p>
-              Kernel Space exists as an intentional counterweight. We build multi-format content—whether through free-flowing podcast dialogues, cinematic animated explainers, or visual deep-dives—that lives where <strong>genuine curiosity meets rigorous preparation</strong>.
-            </p>
-            <p className="text-kernel-muted border-l-2 border-kernel-gold pl-4 italic">
-              "We're not experts pretending to have all the answers. We are curious generalists and learners who happen to have microphones, cameras, and code, figuring things out alongside our audience."
+              Everything we create starts with a simple question: <em>"How does this work?"</em> or <em>"Why is this happening?"</em> We are not experts pretending to have all the answers. We are learners who happen to have microphones, cameras, and code, figuring things out alongside our audience.
             </p>
           </div>
 
-          <div className="lg:col-span-5 relative">
-            <div className="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-card border border-kernel-border bg-kernel-ivory">
+          <div className="lg:col-span-5 relative flex justify-center">
+            <div className="relative w-full max-w-sm aspect-[4/5] rounded-t-[120px] rounded-b-2xl overflow-hidden shadow-card border border-kernel-border bg-white">
               <Image
                 src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1000&q=80"
-                alt="Collaborative thoughtful discussion"
+                alt="Collaborative thoughtful inquiry"
                 fill
-                sizes="(max-width: 1024px) 100vw, 40vw"
+                sizes="(max-width: 1024px) 100vw, 380px"
                 className="object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-              <div className="absolute bottom-4 left-4 right-4 text-white">
-                <span className="text-[10px] uppercase font-bold tracking-widest text-kernel-gold block">
-                  Studio Philosophy
-                </span>
-                <span className="text-xs font-serif italic text-zinc-200">
-                  Collaborative inquiry over rigid institutional authority.
-                </span>
-              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+              <span className="absolute bottom-4 left-4 right-4 text-xs font-serif italic text-white text-center">
+                Curiosity before expertise.
+              </span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 2. Three Pillars of Philosophy */}
-      <section className="bg-kernel-ivory/60 py-20 border-y border-kernel-border">
+      {/* 2. Truthful Founder Note (Section 1.8) */}
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-white rounded-editorial-lg p-8 sm:p-12 border border-kernel-border shadow-subtle space-y-4">
+          <span className="text-[10px] font-bold uppercase tracking-widest text-gold-accent block">
+            Who Is Behind This (The Truthful Version)
+          </span>
+          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-kernel-charcoal">
+            A curious generalist, building in public.
+          </h2>
+          <p className="text-sm text-kernel-grey leading-relaxed">
+            Kernel Space was initiated by someone with a background in business (BBA), currently building AI tools, and with sustained interests spanning design, technology, psychology, and aviation. The perspective is simple: connect dots across disciplines rather than staying inside silos.
+          </p>
+          <p className="text-sm text-kernel-grey leading-relaxed">
+            This is not a one-person show. The team is collaborative—everyone brings their own curiosity and expertise. When someone on the team is passionate about sustainable systems, game theory, or neuroscience, that becomes content too. This is about collective exploration, not individual authority.
+          </p>
+        </div>
+      </section>
+
+      {/* 3. What Makes Us Different (5 Claims per Section 1.12) */}
+      <section className="bg-kernel-ivory py-20 border-y border-kernel-border/70">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           <div className="text-center max-w-2xl mx-auto space-y-2">
-            <span className="text-xs font-semibold uppercase tracking-wider text-kernel-gold">
-              Guiding Principles
+            <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-gold-accent">
+              Our Commitments
             </span>
             <h2 className="heading-section">
-              The Kernel Space Philosophy
+              What makes us different.
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-8 rounded-2xl border border-kernel-border space-y-4">
-              <div className="w-12 h-12 rounded-xl bg-kernel-ivory flex items-center justify-center border border-kernel-border/80">
-                <Sparkles className="w-6 h-6 text-kernel-gold" />
-              </div>
-              <h3 className="text-xl font-bold text-kernel-charcoal">
-                1. Curiosity First
-              </h3>
-              <p className="text-sm text-kernel-muted leading-relaxed">
-                Everything begins with honest, open questions: <em>"How does this actually function?"</em> or <em>"Why is this occurring?"</em> We never fake expertise or posture for views. We do the primary research, interrogate our assumptions, and learn in public.
-              </p>
-            </div>
-
-            <div className="bg-white p-8 rounded-2xl border border-kernel-border space-y-4">
-              <div className="w-12 h-12 rounded-xl bg-kernel-ivory flex items-center justify-center border border-kernel-border/80">
-                <MessageSquareHeart className="w-6 h-6 text-kernel-gold" />
-              </div>
-              <h3 className="text-xl font-bold text-kernel-charcoal">
-                2. Conversations, Not Interviews
-              </h3>
-              <p className="text-sm text-kernel-muted leading-relaxed">
-                We reject transactional interrogation. When someone joins us on audio or video, they are fellow investigators exploring a subject they care about deeply. Think of it like overhearing an electric conversation at a quiet coffee table.
-              </p>
-            </div>
-
-            <div className="bg-white p-8 rounded-2xl border border-kernel-border space-y-4">
-              <div className="w-12 h-12 rounded-xl bg-kernel-ivory flex items-center justify-center border border-kernel-border/80">
-                <ShieldCheck className="w-6 h-6 text-kernel-gold" />
-              </div>
-              <h3 className="text-xl font-bold text-kernel-charcoal">
-                3. Raw & Real
-              </h3>
-              <p className="text-sm text-kernel-muted leading-relaxed">
-                We celebrate the organic messiness of human thought. The thoughtful pauses while searching for precision. The honest admission of <em>"I don't know yet."</em> True intellectual exploration requires vulnerability, not performative polish.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 3. Future Vision & Cadence */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6">
-            <span className="text-xs font-semibold uppercase tracking-wider text-kernel-gold">
-              Production Ethos
-            </span>
-            <h2 className="heading-section">
-              Quality over quantity. Always.
-            </h2>
-            <p className="text-base text-kernel-muted leading-relaxed">
-              We operate on a deliberate production cadence of 1–2 pieces of deeply researched content per month. One incredible 45-minute conversation or visual explainer provides more enduring insight than fifty superficial summaries.
-            </p>
-            <div className="space-y-3 pt-2">
-              <div className="p-4 rounded-xl border border-kernel-border bg-kernel-ivory/30">
-                <h4 className="text-sm font-bold text-kernel-charcoal">Business Case Studies Channel</h4>
-                <p className="text-xs text-kernel-muted mt-1">Deep architectural post-mortems of startups and economic systems.</p>
-              </div>
-              <div className="p-4 rounded-xl border border-kernel-border bg-kernel-ivory/30">
-                <h4 className="text-sm font-bold text-kernel-charcoal">Tech & Building Channel</h4>
-                <p className="text-xs text-kernel-muted mt-1">AI mechanics, automation tools, and making computation transparent.</p>
-              </div>
-              <div className="p-4 rounded-xl border border-kernel-border bg-kernel-ivory/30">
-                <h4 className="text-sm font-bold text-kernel-charcoal">Psychology & Mental Health Channel</h4>
-                <p className="text-xs text-kernel-muted mt-1">Cognitive heuristics, behavioral science, and self-navigation.</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-kernel-charcoal text-white p-8 sm:p-12 rounded-3xl space-y-6">
-            <span className="text-xs font-bold uppercase tracking-widest text-kernel-gold">
-              Audience & Invitation
-            </span>
-            <h3 className="text-2xl sm:text-3xl font-bold">
-              Built for people who ask "why" and "how".
-            </h3>
-            <p className="text-sm sm:text-base text-zinc-300 leading-relaxed">
-              Whether you are a university student finding your footing, a builder assembling your first product, or an engineer curious about cognitive psychology—you belong here.
-            </p>
-            <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row gap-4">
-              <Link href="/explore" className="btn-gold text-xs font-semibold py-3 px-5 text-center">
-                Explore Content
-              </Link>
-              <a
-                href={`mailto:${settings.contactEmail}`}
-                className="btn-gold-outline text-white border-white/30 hover:bg-white/10 text-xs font-semibold py-3 px-5 text-center"
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+            {FIVE_DIFFERENCES.map((diff) => (
+              <div
+                key={diff.num}
+                className="bg-white p-6 rounded-2xl border border-kernel-border shadow-subtle flex flex-col justify-between space-y-4"
               >
-                Get in Touch
-              </a>
-            </div>
+                <span className="font-serif text-2xl font-bold text-kernel-gold">
+                  {diff.num}
+                </span>
+                <div className="space-y-1.5 flex-grow">
+                  <h3 className="font-serif text-base font-bold text-kernel-charcoal">
+                    {diff.title}
+                  </h3>
+                  <p className="text-xs text-kernel-grey leading-relaxed">
+                    {diff.description}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* 4. Team Section (Editable, empty by default per Section 7) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-kernel-border pt-16">
-        <div className="max-w-2xl mb-10">
-          <span className="text-xs font-semibold uppercase tracking-wider text-kernel-gold">
-            Contributors
+      {/* 4. How We Create (5 Steps per Section 4.9 & 5) */}
+      <section id="process" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+        <div className="max-w-2xl space-y-2">
+          <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-gold-accent">
+            Methodology
           </span>
-          <h2 className="heading-section mt-1">
-            The Team & Collaborators
+          <h2 className="heading-section">
+            The Creative Process
           </h2>
-          <p className="text-sm text-kernel-muted mt-2">
-            A distributed network of learners, researchers, and creators.
+          <p className="subheading-editorial text-sm sm:text-base">
+            How an initial question transforms into a published piece of media.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
+          {FIVE_STEPS.map((s) => (
+            <div
+              key={s.step}
+              className="p-6 rounded-editorial bg-white border border-kernel-border space-y-3"
+            >
+              <span className="font-serif text-xl font-bold text-kernel-gold block">
+                {s.step}
+              </span>
+              <h3 className="font-serif text-lg font-bold text-kernel-charcoal">
+                {s.title}
+              </h3>
+              <p className="text-xs text-kernel-grey leading-relaxed">
+                {s.text}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 5. Where This Could Go (Future Channels per Section 1.11) */}
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="p-8 sm:p-12 rounded-editorial-lg bg-white border border-kernel-border shadow-subtle space-y-6">
+          <div className="space-y-2">
+            <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-gold-accent block">
+              Future Vision
+            </span>
+            <h2 className="font-serif text-2xl sm:text-3xl font-normal text-kernel-charcoal">
+              Where this could go.
+            </h2>
+            <p className="text-sm text-kernel-grey leading-relaxed">
+              Right now, we are starting with one channel—building consistency and finding our voice. In the future, this could expand into focused editorial channels, each with its own identity but sharing the same DNA:
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+            <div className="p-4 rounded-xl bg-kernel-ivory/60 border border-kernel-border/70 space-y-1">
+              <strong className="text-kernel-charcoal block">Business Case Studies Channel</strong>
+              <p className="text-kernel-grey">Deep architectural post-mortems of companies, strategy, and economics.</p>
+            </div>
+            <div className="p-4 rounded-xl bg-kernel-ivory/60 border border-kernel-border/70 space-y-1">
+              <strong className="text-kernel-charcoal block">Psychology & Mental Health Channel</strong>
+              <p className="text-kernel-grey">Understanding the mind, practical behavioral insights, and cognitive science.</p>
+            </div>
+            <div className="p-4 rounded-xl bg-kernel-ivory/60 border border-kernel-border/70 space-y-1">
+              <strong className="text-kernel-charcoal block">Travel & Culture Channel</strong>
+              <p className="text-kernel-grey">Not tourist guides, but how environments and geography shape human thinking.</p>
+            </div>
+            <div className="p-4 rounded-xl bg-kernel-ivory/60 border border-kernel-border/70 space-y-1">
+              <strong className="text-kernel-charcoal block">Tech & Building Channel</strong>
+              <p className="text-kernel-grey">AI, automation, systems programming, and making computational tools accessible.</p>
+            </div>
+          </div>
+          <p className="text-[11px] text-kernel-grey italic">
+            *These future channels are planned explorations; only the main Kernel Space channel is currently live.
+          </p>
+        </div>
+      </section>
+
+      {/* 6. The Team Section (Truthful, empty by default per Section 1.8) */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-kernel-border pt-16">
+        <div className="max-w-2xl mb-8">
+          <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-gold-accent">
+            People
+          </span>
+          <h2 className="heading-section text-2xl sm:text-3xl font-normal mt-1">
+            Hosts & Contributors
+          </h2>
+          <p className="text-xs sm:text-sm text-kernel-grey mt-1">
+            We feature 1–2 consistent Hosts plus rotating participants in the conversation.
           </p>
         </div>
 
         {teamMembers && teamMembers.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {teamMembers.map((member) => (
-              <div key={member.id} className="editorial-card p-6 text-center space-y-4">
-                <div className="relative w-24 h-24 rounded-full mx-auto overflow-hidden bg-kernel-ivory border-2 border-kernel-gold">
-                  {member.image_url ? (
-                    <Image
-                      src={member.image_url}
-                      alt={member.name}
-                      fill
-                      className="object-cover"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center text-kernel-gold font-bold text-2xl">
-                      {member.name.charAt(0)}
-                    </div>
-                  )}
+              <div key={member.id} className="editorial-card p-6 text-center space-y-3">
+                <div className="w-20 h-20 rounded-full mx-auto overflow-hidden bg-kernel-ivory border-2 border-kernel-gold flex items-center justify-center font-bold text-kernel-gold text-xl">
+                  {member.name.charAt(0)}
                 </div>
                 <div>
-                  <h3 className="font-bold text-kernel-charcoal">{member.name}</h3>
-                  <p className="text-xs text-kernel-gold font-medium mt-0.5">{member.role}</p>
+                  <h3 className="font-serif font-bold text-kernel-charcoal">{member.name}</h3>
+                  <span className="text-xs text-gold-accent font-medium">{member.role}</span>
                 </div>
-                {member.biography && (
-                  <p className="text-xs text-kernel-muted line-clamp-3 leading-relaxed">
-                    {member.biography}
-                  </p>
-                )}
               </div>
             ))}
           </div>
         ) : (
-          /* Empty by default state with tasteful invitation */
-          <div className="bg-kernel-ivory/50 rounded-2xl p-8 sm:p-12 border border-kernel-border text-center max-w-xl mx-auto space-y-4">
-            <div className="w-12 h-12 rounded-full bg-white border border-kernel-border flex items-center justify-center mx-auto text-kernel-gold">
-              <Mail className="w-5 h-5" />
-            </div>
-            <h3 className="text-lg font-bold text-kernel-charcoal">
-              Our Contributor Circle is Expanding
+          /* Truthful empty state per Section 1.8 */
+          <div className="p-10 rounded-2xl bg-white border border-kernel-border text-center max-w-lg mx-auto space-y-3">
+            <Users className="w-8 h-8 text-kernel-gold mx-auto" />
+            <h3 className="font-serif text-lg font-bold text-kernel-charcoal">
+              Meet the team: details coming soon.
             </h3>
-            <p className="text-sm text-kernel-muted leading-relaxed">
-              We collaborate with researchers, students, and practitioners across all eight disciplines. Team members can be managed and spotlighted through the admin CMS.
+            <p className="text-xs text-kernel-grey leading-relaxed">
+              We are assembling a decentralized circle of learners, student researchers, and builders across all eight disciplines.
             </p>
             <div className="pt-2">
-              <a
-                href={`mailto:${settings.contactEmail}?subject=Collaboration%20Inquiry`}
-                className="btn-gold-outline text-xs px-4 py-2 inline-flex items-center gap-1.5"
-              >
-                <span>Pitch a topic or contribute</span>
+              <Link href="/get-involved" className="btn-gold text-xs px-5 py-2.5 inline-flex items-center gap-1.5">
+                <span>Pitch a topic or collaborate</span>
                 <ArrowRight className="w-3.5 h-3.5" />
-              </a>
+              </Link>
             </div>
           </div>
         )}

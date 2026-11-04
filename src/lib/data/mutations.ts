@@ -4,6 +4,7 @@ import { isSupabaseConfigured } from "../supabase/config";
 import { createServerSupabaseClient } from "../supabase/server";
 import { ContentInput } from "../validations/content";
 import { CategoryInput, TeamMemberInput, SiteSettingsInput } from "../validations/category";
+import { PitchStatus, Channel } from "../types";
 
 export type MutationResult<T = any> = {
   success: boolean;
@@ -245,3 +246,71 @@ export async function subscribeNewsletter(email: string): Promise<MutationResult
     return { success: false, error: err.message || "Subscription failed. Please try again." };
   }
 }
+
+export async function updatePitchStatus(id: string, status: PitchStatus): Promise<MutationResult> {
+  if (!isSupabaseConfigured()) {
+    return { success: false, error: UNCONFIGURED_ERROR };
+  }
+  try {
+    const supabase = createServerSupabaseClient();
+    if (!supabase) return { success: false, error: UNCONFIGURED_ERROR };
+
+    const { error } = await supabase
+      .from("pitches")
+      .update({ status })
+      .eq("id", id);
+
+    if (error) throw error;
+    return { success: true };
+  } catch (err: any) {
+    return { success: false, error: err.message || "Failed to update pitch status" };
+  }
+}
+
+export async function deletePitch(id: string): Promise<MutationResult> {
+  if (!isSupabaseConfigured()) {
+    return { success: false, error: UNCONFIGURED_ERROR };
+  }
+  try {
+    const supabase = createServerSupabaseClient();
+    if (!supabase) return { success: false, error: UNCONFIGURED_ERROR };
+
+    const { error } = await supabase.from("pitches").delete().eq("id", id);
+    if (error) throw error;
+    return { success: true };
+  } catch (err: any) {
+    return { success: false, error: err.message || "Failed to delete pitch" };
+  }
+}
+
+export async function upsertChannel(input: Partial<Channel>): Promise<MutationResult> {
+  if (!isSupabaseConfigured()) {
+    return { success: false, error: UNCONFIGURED_ERROR };
+  }
+  try {
+    const supabase = createServerSupabaseClient();
+    if (!supabase) return { success: false, error: UNCONFIGURED_ERROR };
+
+    if (input.id) {
+      const { data, error } = await supabase
+        .from("channels")
+        .update(input)
+        .eq("id", input.id)
+        .select()
+        .single();
+      if (error) throw error;
+      return { success: true, data };
+    } else {
+      const { data, error } = await supabase
+        .from("channels")
+        .insert(input)
+        .select()
+        .single();
+      if (error) throw error;
+      return { success: true, data };
+    }
+  } catch (err: any) {
+    return { success: false, error: err.message || "Failed to save channel" };
+  }
+}
+

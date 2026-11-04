@@ -12,6 +12,8 @@ import {
   Mail,
   ExternalLink,
   Shield,
+  Sparkles,
+  Radio,
 } from "lucide-react";
 import { Logo } from "../ui/Logo";
 
@@ -19,6 +21,8 @@ const ADMIN_NAV = [
   { label: "Overview", href: "/admin", icon: LayoutDashboard },
   { label: "Content", href: "/admin/content", icon: FileText },
   { label: "Categories", href: "/admin/categories", icon: FolderTree },
+  { label: "Topic Pitches", href: "/admin/pitches", icon: Sparkles },
+  { label: "Channels", href: "/admin/channels", icon: Radio },
   { label: "Team Members", href: "/admin/team", icon: Users },
   { label: "Site Settings", href: "/admin/settings", icon: Settings },
   { label: "Newsletter", href: "/admin/newsletter", icon: Mail },

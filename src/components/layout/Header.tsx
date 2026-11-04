@@ -3,155 +3,203 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, ArrowUpRight } from "lucide-react";
+import { Search, Menu, X, ArrowUpRight } from "lucide-react";
 import { Logo } from "../ui/Logo";
+import { CommandSearch } from "./CommandSearch";
 
 const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "Explore", href: "/explore" },
   { label: "Watch", href: "/watch" },
   { label: "Listen", href: "/listen" },
+  { label: "Read", href: "/read" },
   { label: "About", href: "/about" },
 ];
 
 export function Header() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  // Listen for scroll to toggle subtle frosted backdrop
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 40);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Listen for / or Cmd/Ctrl+K shortcut
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (
+        (e.key === "/" || ((e.metaKey || e.ctrlKey) && e.key === "k")) &&
+        document.activeElement?.tagName !== "INPUT" &&
+        document.activeElement?.tagName !== "TEXTAREA"
+      ) {
+        e.preventDefault();
+        setSearchOpen(true);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   // Close mobile menu on route change
   useEffect(() => {
     setMobileMenuOpen(false);
   }, [pathname]);
 
-  // Lock body scroll when mobile menu is open
-  useEffect(() => {
-    if (mobileMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [mobileMenuOpen]);
-
-  // Handle escape key
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && mobileMenuOpen) {
-        setMobileMenuOpen(false);
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [mobileMenuOpen]);
-
   return (
-    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-kernel-border transition-colors">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-        {/* Logo */}
-        <Logo variant="light" showTagline={true} />
+    <>
+      <header
+        className={`sticky top-0 z-40 w-full transition-all duration-300 ${
+          scrolled
+            ? "bg-kernel-ivory/90 backdrop-blur-md border-b border-kernel-border/80 shadow-subtle py-3"
+            : "bg-transparent py-4 sm:py-6"
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between">
+            {/* Logo Left */}
+            <Logo variant="light" showTagline={false} />
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-8" aria-label="Main Navigation">
-          {NAV_LINKS.map((link) => {
-            const isActive = pathname === link.href;
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`text-sm font-medium transition-colors duration-150 py-1 border-b-2 ${
-                  isActive
-                    ? "text-kernel-charcoal border-kernel-gold font-semibold"
-                    : "text-kernel-muted border-transparent hover:text-kernel-charcoal hover:border-kernel-border"
-                }`}
-              >
-                {link.label}
-              </Link>
-            );
-          })}
-        </nav>
-
-        {/* Desktop CTA & Admin Link */}
-        <div className="hidden md:flex items-center gap-4">
-          <Link
-            href="/admin"
-            className="text-xs font-medium text-kernel-muted hover:text-kernel-charcoal transition-colors px-2 py-1"
-          >
-            Admin CMS
-          </Link>
-          <Link
-            href="/explore"
-            className="btn-gold"
-          >
-            Explore Now
-          </Link>
-        </div>
-
-        {/* Mobile Menu Button */}
-        <div className="flex md:hidden items-center gap-2">
-          <button
-            type="button"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2.5 rounded-lg text-kernel-charcoal hover:bg-kernel-ivory focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kernel-gold"
-            aria-expanded={mobileMenuOpen}
-            aria-label="Toggle navigation menu"
-          >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Drawer / Backdrop */}
-      {mobileMenuOpen && (
-        <div
-          className="fixed inset-0 top-20 z-50 bg-black/40 backdrop-blur-sm md:hidden animate-fade-in"
-          onClick={() => setMobileMenuOpen(false)}
-        >
-          <div
-            className="bg-white border-b border-kernel-border px-6 pt-4 pb-8 space-y-4 shadow-xl"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <nav className="flex flex-col space-y-3" aria-label="Mobile Navigation">
+            {/* Desktop Navigation Links Centre */}
+            <nav className="hidden lg:flex items-center space-x-8" aria-label="Main Navigation">
               {NAV_LINKS.map((link) => {
-                const isActive = pathname === link.href;
+                const isActive =
+                  link.href === "/"
+                    ? pathname === "/"
+                    : pathname.startsWith(link.href);
+
                 return (
                   <Link
                     key={link.href}
                     href={link.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`text-base font-medium px-3 py-2.5 rounded-lg transition-colors flex items-center justify-between ${
+                    className={`relative text-sm font-medium tracking-wide transition-colors py-1 ${
                       isActive
-                        ? "bg-kernel-ivory text-kernel-charcoal font-semibold border-l-4 border-kernel-gold"
-                        : "text-kernel-muted hover:text-kernel-charcoal hover:bg-kernel-ivory/50"
+                        ? "text-kernel-charcoal font-semibold"
+                        : "text-kernel-grey hover:text-kernel-charcoal"
                     }`}
                   >
                     <span>{link.label}</span>
-                    <ArrowUpRight className="w-4 h-4 text-kernel-muted" />
+                    {/* Active Kernel Dot Marker */}
+                    {isActive && (
+                      <span
+                        className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-kernel-gold"
+                        aria-hidden="true"
+                      />
+                    )}
                   </Link>
                 );
               })}
             </nav>
 
-            <div className="pt-4 border-t border-kernel-border flex flex-col gap-3">
+            {/* Desktop Actions Right */}
+            <div className="hidden sm:flex items-center gap-3">
+              {/* Search Icon button */}
+              <button
+                type="button"
+                onClick={() => setSearchOpen(true)}
+                className="p-2.5 rounded-full text-kernel-charcoal hover:bg-black/5 transition-colors flex items-center gap-2 border border-transparent hover:border-kernel-border/60"
+                aria-label="Search content"
+                title="Search (/ or ⌘K)"
+              >
+                <Search className="w-4 h-4 text-kernel-charcoal" />
+                <span className="hidden xl:inline text-xs text-kernel-grey font-mono">
+                  ⌘K
+                </span>
+              </button>
+
               <Link
                 href="/explore"
-                onClick={() => setMobileMenuOpen(false)}
-                className="btn-gold w-full text-center py-3"
+                className="btn-gold text-xs px-5 py-2.5 shadow-sm"
               >
-                Explore Now
+                Explore Content
               </Link>
-              <Link
-                href="/admin"
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-center text-xs font-medium text-kernel-muted hover:text-kernel-charcoal py-2"
+            </div>
+
+            {/* Mobile Actions Right */}
+            <div className="flex sm:hidden items-center gap-1.5">
+              <button
+                type="button"
+                onClick={() => setSearchOpen(true)}
+                className="p-2 rounded-full text-kernel-charcoal hover:bg-black/5"
+                aria-label="Search"
               >
-                Go to Admin CMS
-              </Link>
+                <Search className="w-5 h-5" />
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="p-2 rounded-full text-kernel-charcoal hover:bg-black/5"
+                aria-expanded={mobileMenuOpen}
+                aria-label="Toggle menu"
+              >
+                {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
             </div>
           </div>
         </div>
-      )}
-    </header>
+
+        {/* Mobile Full-Screen Overlay Navigation */}
+        {mobileMenuOpen && (
+          <div
+            className="fixed inset-0 top-16 z-50 bg-kernel-ivory flex flex-col justify-between p-6 sm:hidden border-t border-kernel-border animate-fade-in"
+            role="dialog"
+            aria-modal="true"
+          >
+            <nav className="flex flex-col space-y-4 pt-4">
+              <span className="text-[10px] font-bold uppercase tracking-widest text-gold-accent mb-2">
+                Navigation
+              </span>
+              {NAV_LINKS.map((link) => {
+                const isActive =
+                  link.href === "/"
+                    ? pathname === "/"
+                    : pathname.startsWith(link.href);
+
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`font-serif text-2xl flex items-center justify-between py-2 border-b border-kernel-border/60 ${
+                      isActive ? "text-kernel-gold-deep font-semibold" : "text-kernel-charcoal"
+                    }`}
+                  >
+                    <span>{link.label}</span>
+                    {isActive ? (
+                      <span className="w-2 h-2 rounded-full bg-kernel-gold" />
+                    ) : (
+                      <ArrowUpRight className="w-5 h-5 text-kernel-grey" />
+                    )}
+                  </Link>
+                );
+              })}
+            </nav>
+
+            <div className="space-y-4 pt-6 border-t border-kernel-border">
+              <Link
+                href="/explore"
+                onClick={() => setMobileMenuOpen(false)}
+                className="btn-gold w-full text-center py-3.5 text-sm"
+              >
+                Explore Content
+              </Link>
+              <div className="text-center text-xs text-kernel-grey">
+                Think Deeper. Explore Further.
+              </div>
+            </div>
+          </div>
+        )}
+      </header>
+
+      {/* Full-Screen Command Search Dialog */}
+      <CommandSearch isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
+    </>
   );
 }

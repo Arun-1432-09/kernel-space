@@ -1,5 +1,5 @@
-import { Category, ContentItem, ContentType, SiteSettings, TeamMember } from "../types";
-import { SEED_CATEGORIES, SEED_CONTENT, DEFAULT_SITE_SETTINGS, DEFAULT_TEAM_MEMBERS } from "./mock-data";
+import { Category, ContentItem, ContentType, SiteSettings, TeamMember, Pitch, Channel, PitchStatus } from "../types";
+import { SEED_CATEGORIES, SEED_CONTENT, DEFAULT_SITE_SETTINGS, DEFAULT_TEAM_MEMBERS, SEED_CHANNELS, SEED_PITCHES } from "./mock-data";
 import { createServerSupabaseClient } from "../supabase/server";
 import { isSupabaseConfigured } from "../supabase/config";
 
@@ -224,18 +224,69 @@ export async function getTeamMembers(): Promise<TeamMember[]> {
   return DEFAULT_TEAM_MEMBERS;
 }
 
+export async function getPitches(statusFilter?: PitchStatus | "all"): Promise<Pitch[]> {
+  if (isSupabaseConfigured()) {
+    try {
+      const supabase = createServerSupabaseClient();
+      if (supabase) {
+        let q = supabase.from("pitches").select("*").order("created_at", { ascending: false });
+        if (statusFilter && statusFilter !== "all") {
+          q = q.eq("status", statusFilter);
+        }
+        const { data, error } = await q;
+        if (!error && data) {
+          return data as Pitch[];
+        }
+      }
+    } catch (e) {
+      console.warn("Supabase pitches query failed:", e);
+    }
+  }
+
+  let list = [...SEED_PITCHES];
+  if (statusFilter && statusFilter !== "all") {
+    list = list.filter((p) => p.status === statusFilter);
+  }
+  return list;
+}
+
+export async function getChannels(): Promise<Channel[]> {
+  if (isSupabaseConfigured()) {
+    try {
+      const supabase = createServerSupabaseClient();
+      if (supabase) {
+        const { data, error } = await supabase
+          .from("channels")
+          .select("*")
+          .order("display_order", { ascending: true });
+        if (!error && data && data.length > 0) {
+          return data as Channel[];
+        }
+      }
+    } catch (e) {
+      console.warn("Supabase channels query failed:", e);
+    }
+  }
+  return SEED_CHANNELS;
+}
+
 export async function getAdminStats() {
   const allContent = await getContentList({ status: "all" });
   const categories = await getCategories();
+  const pitches = await getPitches();
 
   const total = allContent.length;
   const published = allContent.filter((i) => i.status === "published").length;
   const draft = allContent.filter((i) => i.status === "draft").length;
+  const comingSoon = allContent.filter((i) => i.status === "coming_soon").length;
+  const pendingPitches = pitches.filter((p) => p.status === "new" || p.status === "reviewing").length;
+
   const byType = {
     video: allContent.filter((i) => i.content_type === "video").length,
     podcast: allContent.filter((i) => i.content_type === "podcast").length,
     article: allContent.filter((i) => i.content_type === "article").length,
     explainer: allContent.filter((i) => i.content_type === "explainer").length,
+    deep_dive: allContent.filter((i) => i.content_type === "deep_dive").length,
   };
   const recentlyAdded = allContent.slice(0, 5);
 
@@ -243,6 +294,8 @@ export async function getAdminStats() {
     total,
     published,
     draft,
+    comingSoon,
+    pendingPitches,
     categoryCount: categories.length,
     byType,
     recentlyAdded,

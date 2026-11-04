@@ -34,7 +34,7 @@ export default function AdminSettingsPage() {
           Site Configuration & Brand Settings
         </h1>
         <p className="text-xs text-kernel-muted mt-1">
-          Update the platform title, tagline, split hero copy, contact email, and official channels.
+          Update the platform title, tagline, split hero copy, founder's note, and official distribution channels.
         </p>
       </div>
 
@@ -104,6 +104,28 @@ export default function AdminSettingsPage() {
           </div>
         </div>
 
+        {/* Founder's Note (Section 1.7) */}
+        <div className="bg-white p-6 rounded-2xl border border-kernel-border space-y-4">
+          <h2 className="text-sm font-bold uppercase tracking-wider text-kernel-charcoal">
+            Founder's Note (Truthful Narrative)
+          </h2>
+          <p className="text-[11px] text-kernel-muted">
+            Displayed on the About page. Must reflect the authentic founder profile per Section 1.7. Never invent credentials or fake career milestones.
+          </p>
+
+          <div>
+            <label className="block font-semibold text-kernel-charcoal mb-1">
+              Founder Statement
+            </label>
+            <textarea
+              value={settings.founder_note || ""}
+              onChange={(e) => setSettings({ ...settings, founder_note: e.target.value })}
+              rows={4}
+              className="w-full px-3 py-2 rounded-lg border border-kernel-border focus:border-kernel-gold leading-relaxed"
+            />
+          </div>
+        </div>
+
         {/* Contact & Legal */}
         <div className="bg-white p-6 rounded-2xl border border-kernel-border space-y-4">
           <h2 className="text-sm font-bold uppercase tracking-wider text-kernel-charcoal">
@@ -129,6 +151,9 @@ export default function AdminSettingsPage() {
           <h2 className="text-sm font-bold uppercase tracking-wider text-kernel-charcoal">
             Distribution Channels & Social Links
           </h2>
+          <p className="text-[11px] text-kernel-muted">
+            Leave blank if not yet live. Empty links are automatically hidden on public pages per truthfulness rules.
+          </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
@@ -137,13 +162,14 @@ export default function AdminSettingsPage() {
               </label>
               <input
                 type="url"
-                value={settings.socialLinks.youtube || ""}
+                value={settings.socialLinks?.youtube || ""}
                 onChange={(e) =>
                   setSettings({
                     ...settings,
                     socialLinks: { ...settings.socialLinks, youtube: e.target.value },
                   })
                 }
+                placeholder="https://youtube.com/@kernelspace"
                 className="w-full px-3 py-2 rounded-lg border border-kernel-border focus:border-kernel-gold font-mono"
               />
             </div>
@@ -154,13 +180,14 @@ export default function AdminSettingsPage() {
               </label>
               <input
                 type="url"
-                value={settings.socialLinks.spotify || ""}
+                value={settings.socialLinks?.spotify || ""}
                 onChange={(e) =>
                   setSettings({
                     ...settings,
                     socialLinks: { ...settings.socialLinks, spotify: e.target.value },
                   })
                 }
+                placeholder="https://open.spotify.com/show/..."
                 className="w-full px-3 py-2 rounded-lg border border-kernel-border focus:border-kernel-gold font-mono"
               />
             </div>
@@ -171,13 +198,14 @@ export default function AdminSettingsPage() {
               </label>
               <input
                 type="url"
-                value={settings.socialLinks.instagram || ""}
+                value={settings.socialLinks?.instagram || ""}
                 onChange={(e) =>
                   setSettings({
                     ...settings,
                     socialLinks: { ...settings.socialLinks, instagram: e.target.value },
                   })
                 }
+                placeholder="https://instagram.com/kernelspace"
                 className="w-full px-3 py-2 rounded-lg border border-kernel-border focus:border-kernel-gold font-mono"
               />
             </div>
@@ -188,13 +216,14 @@ export default function AdminSettingsPage() {
               </label>
               <input
                 type="url"
-                value={settings.socialLinks.linkedin || ""}
+                value={settings.socialLinks?.linkedin || ""}
                 onChange={(e) =>
                   setSettings({
                     ...settings,
                     socialLinks: { ...settings.socialLinks, linkedin: e.target.value },
                   })
                 }
+                placeholder="https://linkedin.com/company/kernelspace"
                 className="w-full px-3 py-2 rounded-lg border border-kernel-border focus:border-kernel-gold font-mono"
               />
             </div>

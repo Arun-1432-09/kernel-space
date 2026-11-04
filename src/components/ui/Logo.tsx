@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 
 interface LogoProps {
-  variant?: "light" | "dark" | "compact";
+  variant?: "light" | "dark" | "monogram";
   showTagline?: boolean;
   className?: string;
   linkHref?: string;
@@ -10,109 +10,69 @@ interface LogoProps {
 
 export function Logo({
   variant = "light",
-  showTagline = true,
+  showTagline = false,
   className = "",
   linkHref = "/",
 }: LogoProps) {
   const isDark = variant === "dark";
-  const isCompact = variant === "compact";
+  const isMonogram = variant === "monogram";
+
+  // Signature Mark: Open Ring with Kernel Dot inside
+  const Mark = (
+    <svg
+      viewBox="0 0 36 36"
+      className={isMonogram ? "w-6 h-6" : "w-7 h-7 flex-shrink-0"}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      {/* The Open Ring: aperture with a delicate gap at top-right */}
+      <circle
+        cx="18"
+        cy="18"
+        r="14"
+        stroke={isDark ? "#C6A15B" : "#A9843E"}
+        strokeWidth="1.75"
+        strokeLinecap="round"
+        strokeDasharray="72 16"
+        strokeDashoffset="-8"
+      />
+      {/* Faint secondary guide ring */}
+      <circle
+        cx="18"
+        cy="18"
+        r="10"
+        stroke={isDark ? "rgba(198,161,91,0.25)" : "rgba(169,132,62,0.2)"}
+        strokeWidth="0.8"
+        strokeDasharray="2 3"
+      />
+      {/* The Kernel Dot: Solid gold core */}
+      <circle
+        cx="18"
+        cy="18"
+        r="4.5"
+        fill="#C6A15B"
+      />
+    </svg>
+  );
 
   const content = (
     <div className={`inline-flex items-center gap-3 select-none ${className}`}>
-      {/* Geometric Kernel Symbol: Core connected to outer nodes */}
-      <svg
-        viewBox="0 0 40 40"
-        className={isCompact ? "w-8 h-8" : "w-9 h-9 flex-shrink-0"}
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true"
-      >
-        {/* Orbital connector paths */}
-        <line
-          x1="20"
-          y1="20"
-          x2="20"
-          y2="7"
-          stroke="#C6A15B"
-          strokeWidth="1.75"
-          strokeLinecap="round"
-        />
-        <line
-          x1="20"
-          y1="20"
-          x2="32.5"
-          y2="12.5"
-          stroke="#C6A15B"
-          strokeWidth="1.75"
-          strokeLinecap="round"
-          strokeOpacity="0.85"
-        />
-        <line
-          x1="20"
-          y1="20"
-          x2="31"
-          y2="29"
-          stroke="#C6A15B"
-          strokeWidth="1.75"
-          strokeLinecap="round"
-          strokeOpacity="0.85"
-        />
-        <line
-          x1="20"
-          y1="20"
-          x2="9"
-          y2="29"
-          stroke="#C6A15B"
-          strokeWidth="1.75"
-          strokeLinecap="round"
-          strokeOpacity="0.85"
-        />
-        <line
-          x1="20"
-          y1="20"
-          x2="7.5"
-          y2="12.5"
-          stroke="#C6A15B"
-          strokeWidth="1.75"
-          strokeLinecap="round"
-          strokeOpacity="0.85"
-        />
+      {Mark}
 
-        {/* Orbit ring */}
-        <circle
-          cx="20"
-          cy="20"
-          r="14.5"
-          stroke={isDark ? "rgba(255,255,255,0.25)" : "#E8E1D2"}
-          strokeWidth="1"
-          strokeDasharray="2 3"
-        />
-
-        {/* Central Core (Kernel) */}
-        <circle cx="20" cy="20" r="5.5" fill="#C6A15B" />
-        <circle cx="20" cy="20" r="2.2" fill={isDark ? "#242321" : "#FFFFFF"} />
-
-        {/* Satellite Perspective Nodes */}
-        <circle cx="20" cy="7" r="3" fill={isDark ? "#F7F4EC" : "#A9843E"} />
-        <circle cx="32.5" cy="12.5" r="2.5" fill="#C6A15B" />
-        <circle cx="31" cy="29" r="3.2" fill={isDark ? "#C6A15B" : "#242321"} />
-        <circle cx="9" cy="29" r="2.6" fill="#C6A15B" />
-        <circle cx="7.5" cy="12.5" r="3" fill={isDark ? "#F7F4EC" : "#A9843E"} />
-      </svg>
-
-      {!isCompact && (
+      {!isMonogram && (
         <div className="flex flex-col">
-          <div className="flex items-baseline tracking-wider">
+          <div className="flex items-baseline tracking-[0.16em]">
             <span
-              className={`font-bold text-lg leading-tight tracking-[0.14em] ${
-                isDark ? "text-white" : "text-kernel-charcoal"
+              className={`font-serif text-lg tracking-[0.18em] uppercase ${
+                isDark ? "text-white font-medium" : "text-kernel-charcoal font-semibold"
               }`}
             >
               KERNEL
             </span>
             <span
-              className={`ml-1.5 font-light text-lg leading-tight tracking-[0.16em] ${
-                isDark ? "text-kernel-gold" : "text-kernel-muted"
+              className={`ml-1.5 font-serif text-lg tracking-[0.18em] uppercase ${
+                isDark ? "text-kernel-gold font-normal" : "text-kernel-grey font-normal"
               }`}
             >
               SPACE
@@ -120,8 +80,8 @@ export function Logo({
           </div>
           {showTagline && (
             <span
-              className={`text-[9px] font-medium tracking-[0.2em] uppercase leading-tight mt-0.5 ${
-                isDark ? "text-kernel-border" : "text-kernel-gold-hover"
+              className={`text-[9px] font-sans font-medium tracking-[0.22em] uppercase mt-0.5 ${
+                isDark ? "text-kernel-border" : "text-gold-accent"
               }`}
             >
               Think Deeper. Explore Further.

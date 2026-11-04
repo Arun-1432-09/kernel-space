@@ -13,11 +13,11 @@ export const metadata: Metadata = {
     template: "%s | Kernel Space",
   },
   description:
-    "An independent media platform for curiosity, learning, and meaningful conversation. Exploring ideas across technology, business, psychology, and design.",
+    "An independent multi-format media and knowledge platform for curious minds: podcast conversations, explanatory videos, articles and visual deep-dives.",
   keywords: [
     "Kernel Space",
     "Podcasts",
-    "Explanatory Journalism",
+    "Explanatory Videos",
     "Systems Thinking",
     "Technology and AI",
     "Business Case Studies",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Kernel Space — Think Deeper. Explore Further.",
     description:
-      "A space for curious minds to question ideas, explore perspectives and understand the world beyond the surface.",
+      "We explore ideas, break down complex topics and have real conversations that help people understand the world a little better.",
     url: "https://kernelspace.media",
     siteName: "Kernel Space",
     images: [
@@ -45,19 +45,19 @@ export const metadata: Metadata = {
         alt: "Kernel Space Editorial Platform",
       },
     ],
-    locale: "en_US",
+    locale: "en_IN",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "Kernel Space — Think Deeper. Explore Further.",
     description:
-      "A space for curious minds to question ideas, explore perspectives and understand the world beyond the surface.",
+      "We explore ideas, break down complex topics and have real conversations that help people understand the world a little better.",
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#FFFFFF",
+  themeColor: "#F7F4EC",
   width: "device-width",
   initialScale: 1,
 };
@@ -72,11 +72,16 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className="min-h-screen flex flex-col font-sans bg-white text-kernel-charcoal antialiased selection:bg-kernel-gold/20 selection:text-kernel-charcoal">
-        <SupabaseNoticeBanner isConfigured={configured} />
-        <Header />
-        <main className="flex-grow">{children}</main>
-        <Footer settings={settings} />
+      <body className="min-h-screen bg-[#EFECE3] antialiased selection:bg-kernel-gold/20 selection:text-kernel-charcoal py-0 sm:py-3">
+        {/* The Wellness-Retreat Shell: rounded floating canvas on desktop, full-bleed on mobile */}
+        <div className="site-shell min-h-screen flex flex-col justify-between">
+          <div>
+            <SupabaseNoticeBanner isConfigured={configured} />
+            <Header />
+            <main id="main-content" className="flex-grow">{children}</main>
+          </div>
+          <Footer settings={settings} />
+        </div>
       </body>
     </html>
   );

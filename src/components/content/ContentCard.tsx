@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Play, Headphones, FileText, Sparkles, Clock, ArrowRight } from "lucide-react";
-import { ContentItem } from "@/lib/types";
+import { ContentItem, ContentType } from "@/lib/types";
 import { formatDuration, formatDate } from "@/lib/utils";
 
 interface ContentCardProps {
@@ -27,17 +27,20 @@ export function ContentCard({
         return <Headphones className="w-3.5 h-3.5" />;
       case "explainer":
         return <Sparkles className="w-3.5 h-3.5" />;
+      case "deep_dive":
+        return <Sparkles className="w-3.5 h-3.5" />;
       case "article":
       default:
         return <FileText className="w-3.5 h-3.5" />;
     }
   };
 
-  const typeLabels = {
+  const typeLabels: Record<ContentType, string> = {
     video: "Video",
     podcast: "Podcast",
     explainer: "Explainer",
     article: "Article",
+    deep_dive: "Deep-Dive",
   };
 
   // Horizontal Card Variant (Curated for Curious Minds)

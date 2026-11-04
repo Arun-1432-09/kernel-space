@@ -33,14 +33,18 @@ export const siteSettingsSchema = z.object({
   heroLabel: z.string().min(1),
   heroHeadline: z.string().min(1),
   heroSupportText: z.string().min(1),
-  contactEmail: z.string().email("Must be a valid email"),
-  socialLinks: z.object({
-    youtube: z.string().url().optional().or(z.literal("")),
-    spotify: z.string().url().optional().or(z.literal("")),
-    instagram: z.string().url().optional().or(z.literal("")),
-    twitter: z.string().url().optional().or(z.literal("")),
-    linkedin: z.string().url().optional().or(z.literal("")),
-  }),
+  contactEmail: z.string().email("Must be a valid email").optional(),
+  founder_note: z.string().optional().nullable(),
+  start_here: z.array(z.string()).optional(),
+  socialLinks: z
+    .object({
+      youtube: z.string().url().optional().or(z.literal("")),
+      spotify: z.string().url().optional().or(z.literal("")),
+      instagram: z.string().url().optional().or(z.literal("")),
+      twitter: z.string().url().optional().or(z.literal("")),
+      linkedin: z.string().url().optional().or(z.literal("")),
+    })
+    .optional(),
 });
 
 export type SiteSettingsInput = z.infer<typeof siteSettingsSchema>;

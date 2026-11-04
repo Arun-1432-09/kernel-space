@@ -1,136 +1,161 @@
 # Kernel Space
 
-> **Tagline:** Think Deeper. Explore Further.
+> **Tagline:** Think Deeper. Explore Further.  
+> **Brand Statement:** We explore ideas, break down complex topics, and have real conversations that help people understand the world a little better.
 
-Kernel Space is a production-ready digital media and knowledge-discovery platform built end-to-end for independent creators, inquisitive minds, students, and systems thinkers.
-
----
-
-## 1. Tech Stack
-
-- **Framework:** Next.js (App Router, TypeScript, React Server Components)
-- **Styling:** Tailwind CSS (custom white-and-gold editorial design tokens) + Lucide Icons
-- **Database & Auth:** Supabase (PostgreSQL, Row Level Security, Auth, Storage)
-- **Validation:** Zod schemas for client and server-side verification
-- **Deployment:** Vercel-ready with zero server-side state dependencies
+Kernel Space is a production-ready, multi-format digital media and knowledge-discovery platform built end-to-end for independent creators, inquisitive minds, students, and systems thinkers. It features podcasts, animated explainers, visual deep dives, and analytical essays across eight interconnected disciplines.
 
 ---
 
-## 2. Design System Tokens
+## 1. Architectural Overview & Tech Stack
 
-- **White (`#FFFFFF`):** Main editorial page background
-- **Ivory (`#F7F4EC`):** Alternating narrative sections & cards
-- **Champagne Gold (`#C6A15B`):** Buttons, interactive icons, active accents
-- **Deep Gold (`#A9843E`):** Hover states, emphasized editorial labels
-- **Charcoal (`#242321`):** Typography headings, dark deep-dive panels
-- **Warm Grey (`#77736A`):** Secondary editorial copy & metadata
-- **Beige Border (`#E8E1D2`):** Dividers, subtle card borders
+- **Framework:** Next.js 14 (App Router, React Server Components, TypeScript)
+- **Styling:** Tailwind CSS with custom editorial design tokens + Lucide Icons + Framer Motion
+- **Database & Auth:** Supabase (PostgreSQL 15+, Row Level Security, Storage, Auth)
+- **Validation:** Zod schemas for forms, mutations, and API route payloads
+- **Deployment:** Vercel-ready with zero-config SSR, ISR, and CDN caching
 
 ---
 
-## 3. Local Development Setup
+## 2. Design System & Editorial Tokens
+
+Inspired by the wellness-retreat layout rhythm (spacious rounded page shell inside an ivory container `#EFECE3`), the aesthetic is restrained, elegant, and information-dense:
+
+| Token | Hex | Role | Contrast Ratio / WCAG |
+|---|---|---|---|
+| **White** | `#FFFFFF` | Main card and background | 21:1 on Charcoal |
+| **Ivory** | `#F7F4EC` | Alternating sections & inner shell | Editorial warmth |
+| **Champagne Gold** | `#C6A15B` | Accent highlights & button fills | Used with Charcoal text (~6:1) |
+| **Deep Gold** | `#A9843E` | Hover emphasis | Interactive states |
+| **Gold Text Accent** | `#7A5F26` | Small gold text on light backgrounds | WCAG AA compliant (4.8:1) |
+| **Charcoal** | `#242321` | Headings, text, dark featured panels | Primary editorial ink |
+| **Warm Grey** | `#77736A` | Secondary descriptions, timestamps | Subtle metadata |
+| **Beige Border** | `#E8E1D2` | Dividers, card strokes, bento borders | Subtle separation |
+
+---
+
+## 3. The Eight Disciplines (01–08)
+
+1. **01 Business & Startups:** How companies operate, business models, unit economics, startup post-mortems, and why ventures succeed or fail.
+2. **02 Technology & AI:** Neural architectures, compute scaling bottlenecks, automation systems, and practical tools reshaping work.
+3. **03 Psychology & Mental Health:** Evolutionary dopamine loops, cognitive heuristics, and navigating modern life. *(Includes mandatory non-medical disclaimer)*
+4. **04 Student Life & Gen-Z Culture:** Credentialism, early-career decisions, peer dynamics, and digital identities.
+5. **05 Design & Creativity:** Negative space, invisible ergonomics, design thinking, and associative incubation.
+6. **06 Travel & Experiences:** Cultural immersion, urban geography, and the psychology of places.
+7. **07 Aviation & Automotive:** Aerodynamic lift, turbofan high-bypass ratios, EV drivetrain thermodynamics, and transportation systems.
+8. **08 Finance & Economics:** Fractional reserve banking, credit creation, fiat trust, and the psychology of spending. *(Includes mandatory non-financial-advice disclaimer)*
+
+---
+
+## 4. Public Site Pages
+
+- **`/` (Homepage):** Complete 14-section sequential flow:
+  1. *Split Hero:* "A space for curious minds." with headline, support text, format chips, and 8-category marquee.
+  2. *Value Blocks (01-04):* Genuine Conversations, Visual Explorations, Ideas Without Borders, Curious Minds.
+  3. *Dark Featured Panel (`#242321`):* 16:9 featured card and queued items.
+  4. *Latest Explorations:* Horizontal scroll-snap card rail.
+  5. *Start Here (Editorial Pick):* 3 foundational gateway entries.
+  6. *Our Story:* Arch-framed visual and philosophy narrative.
+  7. *Category Bento Grid:* 2 large feature cards + 6 standard cards with live counts and index numerals.
+  8. *Magazine Layout:* Asymmetrical grid (1 tall podcast, 1 wide video, 2 articles).
+  9. *Raw & Real Panel:* Conversation ethos with podcast CTA.
+  10. *How We Think Strip:* 5-stage production breakdown.
+  11. *Pitch a Topic CTA:* Direct pathway to `/get-involved`.
+  12. *Newsletter Dispatch:* Email capture with honeypot & under-18 consent.
+  13. *Floating Navigation:* Active kernel dot indicator and Cmd+K search modal.
+  14. *Editorial Footer:* 01-08 directory, legal links, and giant faded watermark.
+- **`/explore`:** Full search and multi-facet filtering (type, category, date).
+- **`/watch`:** Curated visual explainers and documentary video library.
+- **`/listen`:** In-depth conversation podcast catalog with episode notes.
+- **`/read`:** Long-form written essays and post-mortems with reading times.
+- **`/about`:** Mission, 5 principles, authentic founder note, and future channels roadmap.
+- **`/contact`:** Editorial inquiry form with honeypot and age consent check.
+- **`/get-involved`:** Community pitch form with core questions and rationale.
+- **`/category/[slug]`:** Discipline hubs with index badges and required disclaimers.
+- **`/series/[slug]`:** Multi-part curated collection hubs.
+- **`/channel/[slug]`:** Channel broadcasts (`/channel/main` active; inactive channels return 404).
+- **`/content/[slug]`:** Full article reader with sources citation list, "What we're still figuring out" transparency box, and graceful media coming soon states.
+- **`/rss.xml` & `/sitemap.xml` & `/robots.txt`:** Fully dynamic SEO endpoints.
+
+---
+
+## 5. Admin CMS (`/admin`)
+
+- **`/admin` (Overview):** Metrics for total content, published, drafts, coming soon teasers, pending topic pitches, and 5-format breakdown.
+- **`/admin/content` (Library):** Paginated table with search, format filters, status toggles, and deletion modal.
+- **`/admin/content/new` & `[id]/edit`:**
+  - Auto-slug generator
+  - Dynamic research citation sources manager
+  - Unresolved questions ("What we're still figuring out")
+  - **Live Pre-Publish Checklist:** Validates title, slug, primary category, alt text, image credit, body/media, reading duration, disclaimers, and sources before publishing.
+- **`/admin/pitches` (Topic Pitches Inbox):**
+  - Review community submissions from `/get-involved`
+  - 1-click status actions: Reviewing, Accepted, Declined
+  - **Convert to Draft Article:** Instantly pre-fills the content editor from an accepted community pitch!
+- **`/admin/channels`:** View all distribution channels and toggle active/inactive broadcast states.
+- **`/admin/categories`:** Manage 01–08 disciplines with safeguards preventing accidental deletion of core categories.
+- **`/admin/settings`:** Edit split hero copy, brand tagline, founder's note, contact email, and active social channels.
+- **`/admin/newsletter`:** View subscriber roster with CSV export.
+
+---
+
+## 6. Quick Start & Local Execution
 
 ### Prerequisites
-- Node.js 18+ (tested on Node v24.13.0)
+- Node.js 18+
 - npm or pnpm
 
-### Quick Start
 ```bash
-# Clone or navigate into the project directory
+# Navigate to the repository
 cd kernel-space
 
 # Install dependencies
 npm install
 
-# Copy environment template
-cp .env.example .env.local
+# Run production build
+npm run build
 
-# Run the local development server
-npm run dev
+# Start the application server
+npm run start
 ```
-
-Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-> **Note on Preview Mode:** If Supabase credentials are not supplied in `.env.local`, Kernel Space automatically runs in **Demo Preview Mode** using built-in seeded editorial records and displays an informative setup notice banner.
+The application will be live at `http://localhost:3000`.
 
 ---
 
-## 4. Supabase Setup & Migrations
+## 7. Connecting Supabase for Live Database Persistence
 
-### 1. Create a Supabase Project
-1. Log in to [supabase.com](https://supabase.com) and create a new project.
-2. Note your Project URL and anon public API key in **Project Settings > API**.
+When running without Supabase credentials, Kernel Space defaults to **Demo Preview Mode** using built-in seed records. To connect live Supabase PostgreSQL:
 
-### 2. Apply Database Schema & Migrations
-1. In the Supabase dashboard, navigate to the **SQL Editor**.
-2. Run the script located at:
+1. Create a free project at [supabase.com](https://supabase.com).
+2. Copy `.env.example` to `.env.local`:
+   ```bash
+   cp .env.example .env.local
    ```
-   supabase/migrations/20241103_001_initial_schema.sql
+3. Copy your project URL and Anon Key into `.env.local`:
+   ```env
+   NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOi...
+   SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
    ```
-   This creates:
-   - Tables: `categories`, `content`, `content_categories`, `team_members`, `site_settings`, `newsletter_subscribers`, `admin_users`
-   - Custom enum types: `content_type`, `content_status`, `subscriber_status`
-   - Full-text search GIN index on `title` and `description`
-   - Row Level Security (RLS) policies allowing public read of published content and strict authenticated admin management
-   - Public storage bucket `thumbnails` with admin-only upload policies.
-
-### 3. Seed Demo Content & Categories
-In the **SQL Editor**, execute:
-```
-supabase/seed.sql
-```
-This populates:
-- 8 foundational categories (Business & Startups, Technology & AI, Psychology & Mental Health, Student Life & Gen-Z Culture, Design & Creativity, Travel & Experiences, Aviation & Automotive, Finance & Economics).
-- 16 initial demo records spanning videos, podcasts, explainers, and essays.
-- Default site settings and editorial copy.
-
-### 4. Create Your First Admin User
-1. In the Supabase Dashboard, go to **Authentication > Users** and click **Add User > Create User** (e.g. `admin@kernelspace.media` with a secure password).
-2. Copy the resulting **User UID** (UUID).
-3. In the **SQL Editor**, grant admin permissions to this UID:
+4. In the Supabase Dashboard, open the **SQL Editor** and run:
+   - `supabase/migrations/20241103_001_initial_schema.sql`
+   - `supabase/seed.sql`
+5. Create an authorized admin user by signing up in Supabase Auth and inserting their UUID into `admin_users`:
    ```sql
    INSERT INTO admin_users (user_id, email, role)
-   VALUES ('<PASTE-USER-UID-HERE>', 'admin@kernelspace.media', 'admin');
+   VALUES ('YOUR-AUTH-USER-UUID', 'admin@kernelspace.media', 'admin');
    ```
-4. You can now log in at `/admin/login`.
 
 ---
 
-## 5. Deployment on Vercel
+## 8. Deployment to Vercel
 
-1. Push your repository to GitHub, GitLab, or Bitbucket.
-2. Go to [Vercel](https://vercel.com) and import the repository.
-3. In the **Environment Variables** section, configure:
-   - `NEXT_PUBLIC_SUPABASE_URL`: Your Supabase URL
-   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`: Your Supabase Anon Key
-   - `SUPABASE_SERVICE_ROLE_KEY`: Your Supabase Service Role Key
-4. Click **Deploy**. Vercel will build the Next.js App Router application with static generation and ISR.
+Kernel Space is configured for immediate, zero-downtime deployment on Vercel:
 
----
+```bash
+# Using Vercel CLI
+vercel
 
-## 6. Architecture & Features
-
-### Public Platform
-- **Split Hero:** Editorial positioning, dual CTA, and cinematic imagery.
-- **Value Blocks:** Genuine Conversations, Visual Explorations, Ideas Without Borders, Curious Minds.
-- **Dark Featured Panel (`#242321`):** Dynamic hand-selected investigations.
-- **Curated Carousel:** Horizontal touch-friendly cards for mobile and desktop.
-- **Featured Collection:** Multidisciplinary collage & deeper contextual narrative.
-- **Category Matrix:** 8 foundational domains with Lucide icons and routing.
-- **Contact & Real Newsletter:** Rate-limited Zod validation with honest status messages.
-- **Content Pages:**
-  - `/explore`: Real-time search, multi-category filters, format tabs, and reset logic.
-  - `/watch`: Featured video with YouTube player (only embeds valid URLs).
-  - `/listen`: Featured audio dialogue with Spotify player (only embeds valid URLs).
-  - `/about`: Manifesto, 3 pillars of philosophy, production cadence, and team section.
-  - `/content/[slug]`: Rich article reading experience, embedded media, related items.
-  - `/privacy` & `/terms`: Clearly marked legal templates.
-
-### Admin CMS (`/admin`)
-- **Protected Layout:** Server-side verified Supabase auth or safe demo inspection.
-- **Overview:** Real-time publishing counts, format breakdown, and database connection status.
-- **Content Table:** Full CRUD, search, status toggle, featured toggle, delete confirmation modal, slug uniqueness validation.
-- **Category Manager:** CRUD for knowledge domains.
-- **Team Manager:** Dynamic contributor bios.
-- **Site Settings:** Global contact email, social links, and hero copy.
-- **Newsletter:** Subscriber list and one-click CSV export.
+# Or push to GitHub and import the repository into the Vercel Dashboard
+```
+Ensure you add `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, and `SUPABASE_SERVICE_ROLE_KEY` in your Vercel Project Settings under **Environment Variables**.
