@@ -1,7 +1,10 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Sparkles, Clock, Play, Headphones, BookOpen } from "lucide-react";
+import { motion } from "framer-motion";
 import { ContentItem } from "@/lib/types";
 import { formatDuration, formatDate } from "@/lib/utils";
 
@@ -44,7 +47,13 @@ export function FeaturedShowcase({ featuredItems }: FeaturedShowcaseProps) {
       {/* Subtle gold ambient glow */}
       <div className="absolute top-1/4 right-0 w-[450px] h-[450px] bg-kernel-gold/5 rounded-full blur-[100px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-12">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-12"
+      >
         {/* Section Header */}
         <div className="max-w-2xl space-y-3">
           <div className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-kernel-gold">
@@ -176,7 +185,7 @@ export function FeaturedShowcase({ featuredItems }: FeaturedShowcaseProps) {
             ))}
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

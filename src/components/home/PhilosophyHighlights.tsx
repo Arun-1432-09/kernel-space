@@ -1,5 +1,8 @@
+"use client";
+
 import React from "react";
 import { Compass, Lightbulb, Globe, Users } from "lucide-react";
+import { motion } from "framer-motion";
 
 const HIGHLIGHTS = [
   {
@@ -36,20 +39,41 @@ export function PhilosophyHighlights() {
       <div className="glass-ambient-ivory w-96 h-96 -bottom-10 left-10 opacity-60" aria-hidden="true" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-40px" }}
+          variants={{
+            hidden: {},
+            visible: {
+              transition: {
+                staggerChildren: 0.12,
+              },
+            },
+          }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
+        >
           {HIGHLIGHTS.map((item) => {
             const Icon = item.icon;
             return (
-              <div
+              <motion.div
                 key={item.num}
-                className="glass-card p-7 rounded-editorial flex flex-col justify-between group hover:-translate-y-1.5"
+                variants={{
+                  hidden: { opacity: 0, y: 30 },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    transition: { duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98] },
+                  },
+                }}
+                className="glass-card p-7 rounded-editorial flex flex-col justify-between group hover:-translate-y-1.5 transition-all duration-300"
               >
                 <div>
                   <div className="flex items-center justify-between mb-6">
                     <span className="font-serif text-2xl font-bold text-kernel-gold">
                       {item.num}
                     </span>
-                    <div className="w-10 h-10 rounded-full glass-pill flex items-center justify-center border border-white/80 group-hover:scale-105 transition-transform shadow-xs">
+                    <div className="w-10 h-10 rounded-full glass-pill flex items-center justify-center border border-white/80 group-hover:scale-110 transition-transform shadow-xs">
                       <Icon className="w-4 h-4 text-kernel-charcoal" />
                     </div>
                   </div>
@@ -66,10 +90,10 @@ export function PhilosophyHighlights() {
                 <div className="mt-6 pt-4 border-t border-kernel-border/50 text-[10px] font-bold uppercase tracking-widest text-gold-accent">
                   Principle {item.num}
                 </div>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

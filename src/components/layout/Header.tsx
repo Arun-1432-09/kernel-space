@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Search, Menu, X, ArrowUpRight } from "lucide-react";
+import { motion } from "framer-motion";
 import { Logo } from "../ui/Logo";
 import { CommandSearch } from "./CommandSearch";
 
@@ -54,7 +55,10 @@ export function Header() {
 
   return (
     <>
-      <header
+      <motion.header
+        initial={{ y: -30, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         className={`sticky top-0 z-40 w-full transition-all duration-300 ${
           scrolled
             ? "bg-white/80 backdrop-blur-xl border-b border-white/60 shadow-[0_8px_30px_rgba(36,35,33,0.04)] py-3"
@@ -199,7 +203,7 @@ export function Header() {
             </div>
           </div>
         )}
-      </header>
+      </motion.header>
 
       {/* Full-Screen Command Search Dialog */}
       <CommandSearch isOpen={searchOpen} onClose={() => setSearchOpen(false)} />

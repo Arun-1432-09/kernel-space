@@ -1,8 +1,11 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight, Compass } from "lucide-react";
 import { Category } from "@/lib/types";
+import { motion } from "framer-motion";
 
 interface CategoryBentoMapProps {
   categories: (Category & { count?: number })[];
@@ -51,62 +54,85 @@ export function CategoryBentoMap({ categories }: CategoryBentoMapProps) {
           </Link>
         </div>
 
-        {/* Bento Grid: 2 Large featured tiles + 6 standard tiles */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Bento Grid: 2 Large featured tiles + 6 standard tiles with staggered entrance */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-40px" }}
+          variants={{
+            hidden: {},
+            visible: {
+              transition: {
+                staggerChildren: 0.08,
+              },
+            },
+          }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+        >
           {categories.map((cat, idx) => {
             const isLarge = idx === 0 || idx === 1;
             const img = CATEGORY_IMAGES[cat.slug] || "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80";
             const num = String(idx + 1).padStart(2, "0");
 
             return (
-              <Link
+              <motion.div
                 key={cat.id}
-                href={`/explore?category=${cat.slug}`}
-                className={`group glass-card overflow-hidden flex flex-col justify-between p-6 transition-all duration-300 hover:border-kernel-gold hover:shadow-floating ${
-                  isLarge ? "sm:col-span-2" : ""
-                }`}
+                variants={{
+                  hidden: { opacity: 0, y: 24 },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    transition: { duration: 0.55, ease: [0.21, 0.47, 0.32, 0.98] },
+                  },
+                }}
+                className={isLarge ? "sm:col-span-2" : ""}
               >
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="font-serif text-2xl font-bold text-kernel-gold group-hover:text-kernel-gold-deep transition-colors">
-                      {num}
-                    </span>
-                    <span className="text-[11px] font-semibold text-kernel-grey px-2.5 py-0.5 rounded-full glass-pill">
-                      {cat.count && cat.count > 0 ? `${cat.count} published` : "Exploring soon"}
-                    </span>
+                <Link
+                  href={`/explore?category=${cat.slug}`}
+                  className="group glass-card h-full overflow-hidden flex flex-col justify-between p-6 transition-all duration-300 hover:border-kernel-gold hover:shadow-floating block"
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="font-serif text-2xl font-bold text-kernel-gold group-hover:text-kernel-gold-deep transition-colors">
+                        {num}
+                      </span>
+                      <span className="text-[11px] font-semibold text-kernel-grey px-2.5 py-0.5 rounded-full glass-pill">
+                        {cat.count && cat.count > 0 ? `${cat.count} published` : "Exploring soon"}
+                      </span>
+                    </div>
+
+                    {isLarge && (
+                      <div className="relative w-full aspect-[21/9] rounded-xl overflow-hidden mb-5 bg-kernel-ivory">
+                        <Image
+                          src={img}
+                          alt={cat.name}
+                          fill
+                          sizes="(max-width: 1024px) 100vw, 50vw"
+                          className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                      </div>
+                    )}
+
+                    <h3 className="font-serif text-xl font-bold text-kernel-charcoal group-hover:text-kernel-gold-deep transition-colors flex items-center justify-between">
+                      <span>{cat.name}</span>
+                      <ArrowUpRight className="w-4 h-4 text-kernel-grey group-hover:text-kernel-gold group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+                    </h3>
+
+                    <p className="mt-2 text-xs text-kernel-grey leading-relaxed line-clamp-3">
+                      {cat.description}
+                    </p>
                   </div>
 
-                  {isLarge && (
-                    <div className="relative w-full aspect-[21/9] rounded-xl overflow-hidden mb-5 bg-kernel-ivory">
-                      <Image
-                        src={img}
-                        alt={cat.name}
-                        fill
-                        sizes="(max-width: 1024px) 100vw, 50vw"
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-                    </div>
-                  )}
-
-                  <h3 className="font-serif text-xl font-bold text-kernel-charcoal group-hover:text-kernel-gold-deep transition-colors flex items-center justify-between">
-                    <span>{cat.name}</span>
-                    <ArrowUpRight className="w-4 h-4 text-kernel-grey group-hover:text-kernel-gold group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
-                  </h3>
-
-                  <p className="mt-2 text-xs text-kernel-grey leading-relaxed line-clamp-3">
-                    {cat.description}
-                  </p>
-                </div>
-
-                <div className="mt-6 pt-4 border-t border-kernel-border/60 flex items-center justify-between text-[11px] font-semibold text-gold-accent">
-                  <span>Enter discipline</span>
-                  <span>0{idx + 1}</span>
-                </div>
-              </Link>
+                  <div className="mt-6 pt-4 border-t border-kernel-border/60 flex items-center justify-between text-[11px] font-semibold text-gold-accent">
+                    <span>Enter discipline</span>
+                    <span>0{idx + 1}</span>
+                  </div>
+                </Link>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

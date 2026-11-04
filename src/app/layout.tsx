@@ -3,6 +3,7 @@ import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { SupabaseNoticeBanner } from "@/components/layout/SupabaseNoticeBanner";
+import { OpeningCurtain } from "@/components/animations/OpeningCurtain";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { getSiteSettings } from "@/lib/data/queries";
 
@@ -73,6 +74,9 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className="min-h-screen bg-[#EFECE3] antialiased selection:bg-kernel-gold/20 selection:text-kernel-charcoal py-0 sm:py-3 relative overflow-x-hidden">
+        {/* Brand Cinematic Opening Sequence */}
+        <OpeningCurtain />
+
         {/* Atmospheric ambient glass light orbs */}
         <div className="glass-ambient-gold w-[600px] h-[600px] -top-32 -left-32 opacity-25" aria-hidden="true" />
         <div className="glass-ambient-ivory w-[700px] h-[700px] top-1/3 -right-48 opacity-40" aria-hidden="true" />

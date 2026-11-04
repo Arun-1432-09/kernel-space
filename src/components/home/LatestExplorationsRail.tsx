@@ -4,6 +4,7 @@ import React, { useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, ArrowRight, Clock, Play, Headphones, Sparkles, BookOpen } from "lucide-react";
+import { motion } from "framer-motion";
 import { ContentItem } from "@/lib/types";
 import { formatDuration, formatDate } from "@/lib/utils";
 
@@ -37,7 +38,13 @@ export function LatestExplorationsRail({ items }: LatestExplorationsRailProps) {
 
   return (
     <section className="py-20 sm:py-28 bg-white border-b border-kernel-border/70">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+      <motion.div
+        initial={{ opacity: 0, y: 28 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10"
+      >
         {/* Header with Navigation Arrows */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6">
           <div className="space-y-2">
@@ -139,7 +146,7 @@ export function LatestExplorationsRail({ items }: LatestExplorationsRailProps) {
             </Link>
           ))}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }
