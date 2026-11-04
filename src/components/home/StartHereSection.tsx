@@ -19,10 +19,13 @@ export function StartHereSection({ items }: StartHereProps) {
   };
 
   return (
-    <section className="py-20 sm:py-24 bg-kernel-ivory/60 border-b border-kernel-border/70">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+    <section className="py-20 sm:py-24 bg-kernel-ivory/60 relative overflow-hidden border-b border-kernel-border/70">
+      <div className="glass-ambient-gold w-[380px] h-[380px] -top-12 left-10 opacity-30" aria-hidden="true" />
+      <div className="glass-ambient-ivory w-[400px] h-[400px] -bottom-10 right-10 opacity-50" aria-hidden="true" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 relative z-10">
         <div className="text-center max-w-2xl mx-auto space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-kernel-border text-[10px] font-bold uppercase tracking-widest text-gold-accent">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-pill text-[10px] font-bold uppercase tracking-widest text-gold-accent">
             <Compass className="w-3.5 h-3.5 text-kernel-gold" />
             <span>Orientation</span>
           </div>
@@ -39,7 +42,7 @@ export function StartHereSection({ items }: StartHereProps) {
             <Link
               key={item.id}
               href={`/content/${item.slug}`}
-              className="editorial-card p-6 flex flex-col justify-between group hover:border-kernel-gold transition-all duration-300"
+              className="glass-card p-6 rounded-2xl flex flex-col justify-between group hover:border-kernel-gold transition-all duration-300 hover:-translate-y-1"
             >
               <div className="space-y-4">
                 <div className="relative w-full aspect-[16/10] rounded-xl overflow-hidden bg-kernel-ivory">
@@ -50,7 +53,7 @@ export function StartHereSection({ items }: StartHereProps) {
                     sizes="(max-width: 768px) 100vw, 33vw"
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <span className="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-full bg-white/95 text-[10px] font-bold uppercase tracking-wider text-kernel-charcoal shadow-sm">
+                  <span className="absolute top-2.5 left-2.5 px-3 py-1 rounded-full glass-pill text-[10px] font-bold uppercase tracking-wider text-kernel-charcoal shadow-sm">
                     Entry {idx + 1}
                   </span>
                 </div>

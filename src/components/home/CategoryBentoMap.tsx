@@ -22,11 +22,15 @@ const CATEGORY_IMAGES: Record<string, string> = {
 
 export function CategoryBentoMap({ categories }: CategoryBentoMapProps) {
   return (
-    <section className="py-20 sm:py-28 bg-kernel-ivory border-b border-kernel-border/70">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+    <section className="py-20 sm:py-28 bg-kernel-ivory/60 relative overflow-hidden border-b border-kernel-border/70">
+      {/* Ambient glass light refraction */}
+      <div className="glass-ambient-gold w-[400px] h-[400px] top-10 -right-20 opacity-35" aria-hidden="true" />
+      <div className="glass-ambient-ivory w-[450px] h-[450px] -bottom-10 -left-20 opacity-60" aria-hidden="true" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 relative z-10">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6">
           <div className="space-y-3">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-kernel-border text-[10px] font-bold uppercase tracking-widest text-gold-accent">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-pill text-[10px] font-bold uppercase tracking-widest text-gold-accent">
               <Compass className="w-3.5 h-3.5 text-kernel-gold" />
               <span>Disciplines Directory</span>
             </div>
@@ -58,8 +62,8 @@ export function CategoryBentoMap({ categories }: CategoryBentoMapProps) {
               <Link
                 key={cat.id}
                 href={`/explore?category=${cat.slug}`}
-                className={`group editorial-card overflow-hidden flex flex-col justify-between p-6 transition-all duration-300 hover:border-kernel-gold hover:shadow-floating ${
-                  isLarge ? "sm:col-span-2 bg-white" : "bg-white"
+                className={`group glass-card overflow-hidden flex flex-col justify-between p-6 transition-all duration-300 hover:border-kernel-gold hover:shadow-floating ${
+                  isLarge ? "sm:col-span-2" : ""
                 }`}
               >
                 <div>
@@ -67,7 +71,7 @@ export function CategoryBentoMap({ categories }: CategoryBentoMapProps) {
                     <span className="font-serif text-2xl font-bold text-kernel-gold group-hover:text-kernel-gold-deep transition-colors">
                       {num}
                     </span>
-                    <span className="text-[11px] font-semibold text-kernel-grey px-2.5 py-0.5 rounded-full bg-kernel-ivory border border-kernel-border">
+                    <span className="text-[11px] font-semibold text-kernel-grey px-2.5 py-0.5 rounded-full glass-pill">
                       {cat.count && cat.count > 0 ? `${cat.count} published` : "Exploring soon"}
                     </span>
                   </div>

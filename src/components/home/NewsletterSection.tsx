@@ -55,10 +55,14 @@ export function NewsletterSection() {
   };
 
   return (
-    <section className="py-20 sm:py-28 bg-white border-b border-kernel-border/70">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-kernel-ivory rounded-editorial-lg sm:rounded-editorial-xl p-8 sm:p-14 border border-kernel-border shadow-card text-center space-y-6">
-          <div className="w-12 h-12 rounded-full bg-white border border-kernel-border flex items-center justify-center mx-auto text-kernel-gold shadow-subtle">
+    <section className="py-20 sm:py-28 bg-white/50 relative overflow-hidden border-b border-kernel-border/70">
+      {/* Soft ambient glass glows */}
+      <div className="glass-ambient-gold w-[400px] h-[400px] -top-20 -left-10 opacity-30" aria-hidden="true" />
+      <div className="glass-ambient-ivory w-[400px] h-[400px] -bottom-20 -right-10 opacity-50" aria-hidden="true" />
+
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="glass-panel rounded-editorial-lg sm:rounded-editorial-xl p-8 sm:p-14 text-center space-y-6 relative overflow-hidden">
+          <div className="w-12 h-12 rounded-full glass-pill flex items-center justify-center mx-auto text-kernel-gold border border-white/80 shadow-xs">
             <Mail className="w-5 h-5" />
           </div>
 
@@ -95,12 +99,12 @@ export function NewsletterSection() {
                 placeholder="Enter your email address..."
                 required
                 disabled={loading}
-                className="flex-grow px-4 py-3 rounded-full border border-kernel-border focus:border-kernel-gold focus:ring-1 focus:ring-kernel-gold text-xs sm:text-sm bg-white text-kernel-charcoal placeholder-kernel-grey/60"
+                className="flex-grow px-4 py-3 rounded-full border border-white/80 focus:border-kernel-gold focus:ring-1 focus:ring-kernel-gold text-xs sm:text-sm bg-white/80 backdrop-blur-md text-kernel-charcoal placeholder-kernel-grey/60 shadow-xs"
               />
               <button
                 type="submit"
                 disabled={loading}
-                className="btn-gold text-xs px-6 py-3 whitespace-nowrap inline-flex items-center justify-center gap-1.5"
+                className="btn-gold text-xs px-6 py-3 whitespace-nowrap inline-flex items-center justify-center gap-1.5 shadow-md hover:shadow-lg"
               >
                 {loading ? (
                   <>

@@ -24,7 +24,7 @@ export function Footer({ settings }: FooterProps) {
   const socials = settings?.socialLinks || {};
 
   return (
-    <footer className="bg-white border-t border-kernel-border/80 pt-16 sm:pt-20 pb-12 overflow-hidden relative">
+    <footer className="bg-white/70 backdrop-blur-xl border-t border-white/80 pt-16 sm:pt-20 pb-12 overflow-hidden relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-12 pb-14 border-b border-kernel-border/60">
           {/* Brand Info (5 cols) */}

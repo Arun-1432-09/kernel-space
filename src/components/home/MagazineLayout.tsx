@@ -17,8 +17,12 @@ export function MagazineLayout({ items }: MagazineLayoutProps) {
   if (!podcast || !video) return null;
 
   return (
-    <section className="py-20 sm:py-28 bg-white border-b border-kernel-border/70">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+    <section className="py-20 sm:py-28 bg-white/60 relative overflow-hidden border-b border-kernel-border/70">
+      {/* Ambient Glass Glows */}
+      <div className="glass-ambient-gold w-[420px] h-[420px] -top-16 -right-16 opacity-30" aria-hidden="true" />
+      <div className="glass-ambient-ivory w-[400px] h-[400px] -bottom-16 -left-16 opacity-60" aria-hidden="true" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 relative z-10">
         <div className="max-w-2xl space-y-3">
           <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-gold-accent">
             Curated Formats
@@ -33,13 +37,13 @@ export function MagazineLayout({ items }: MagazineLayoutProps) {
 
         {/* Magazine Asymmetrical Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-          {/* Tall Podcast Card (4 cols) */}
+          {/* Tall Podcast Card (4 cols) with Frosted Glass Panel */}
           <Link
             href={`/content/${podcast.slug}`}
-            className="lg:col-span-4 editorial-card p-6 flex flex-col justify-between group hover:border-kernel-gold transition-all duration-300 bg-kernel-ivory"
+            className="lg:col-span-4 glass-panel p-6 rounded-2xl flex flex-col justify-between group hover:border-kernel-gold transition-all duration-300"
           >
             <div className="space-y-4">
-              <div className="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-white">
+              <div className="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-white/70">
                 <Image
                   src={podcast.thumbnail_url}
                   alt={podcast.title}
@@ -47,7 +51,7 @@ export function MagazineLayout({ items }: MagazineLayoutProps) {
                   sizes="(max-width: 1024px) 100vw, 33vw"
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <span className="absolute top-3 left-3 px-3 py-1 rounded-full bg-white/95 text-[10px] font-bold uppercase text-kernel-charcoal shadow-sm flex items-center gap-1.5">
+                <span className="absolute top-3 left-3 px-3 py-1 rounded-full glass-pill text-[10px] font-bold uppercase text-kernel-charcoal shadow-sm flex items-center gap-1.5">
                   <Headphones className="w-3.5 h-3.5 text-kernel-gold" />
                   <span>Audio Dialogue</span>
                 </span>
@@ -82,7 +86,7 @@ export function MagazineLayout({ items }: MagazineLayoutProps) {
             {/* Wide Video Card */}
             <Link
               href={`/content/${video.slug}`}
-              className="editorial-card overflow-hidden group hover:border-kernel-gold transition-all duration-300 flex flex-col sm:flex-row bg-white"
+              className="glass-card overflow-hidden group hover:border-kernel-gold transition-all duration-300 flex flex-col sm:flex-row rounded-2xl"
             >
               <div className="relative w-full sm:w-1/2 aspect-[16/10] sm:aspect-auto overflow-hidden bg-kernel-ivory">
                 <Image
@@ -92,7 +96,7 @@ export function MagazineLayout({ items }: MagazineLayoutProps) {
                   sizes="(max-width: 1024px) 100vw, 40vw"
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <span className="absolute top-3 left-3 px-3 py-1 rounded-full bg-white/95 text-[10px] font-bold uppercase text-kernel-charcoal shadow-sm flex items-center gap-1.5">
+                <span className="absolute top-3 left-3 px-3 py-1 rounded-full glass-pill text-[10px] font-bold uppercase text-kernel-charcoal shadow-sm flex items-center gap-1.5">
                   <Play className="w-3.5 h-3.5 fill-current text-kernel-gold" />
                   <span>Visual Explainer</span>
                 </span>
@@ -126,7 +130,7 @@ export function MagazineLayout({ items }: MagazineLayoutProps) {
                 <Link
                   key={art.id}
                   href={`/content/${art.slug}`}
-                  className="editorial-card p-6 flex flex-col justify-between group hover:border-kernel-gold transition-all duration-300 bg-kernel-ivory/50"
+                  className="glass-card p-6 flex flex-col justify-between group hover:border-kernel-gold transition-all duration-300 rounded-2xl"
                 >
                   <div className="space-y-2.5">
                     <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-widest text-gold-accent">

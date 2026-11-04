@@ -32,12 +32,12 @@ export function HowWeThinkStrip() {
           </Link>
         </div>
 
-        {/* 5-Step Compact Row */}
+        {/* 5-Step Compact Row with Frosted Glass */}
         <div className="grid grid-cols-1 sm:grid-cols-5 gap-4">
           {STEPS.map((step, idx) => (
             <div
               key={step.num}
-              className="p-5 rounded-2xl bg-kernel-ivory/60 border border-kernel-border/80 relative space-y-2 group hover:border-kernel-gold transition-colors"
+              className="p-5 rounded-2xl glass-card relative space-y-2 group hover:border-kernel-gold hover:-translate-y-1 transition-all duration-300"
             >
               <div className="flex items-center justify-between">
                 <span className="font-serif text-lg font-bold text-kernel-gold">

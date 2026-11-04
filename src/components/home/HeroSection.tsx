@@ -19,12 +19,17 @@ const CATEGORIES_TICKER = [
 export function HeroSection() {
   return (
     <section className="relative overflow-hidden pt-6 sm:pt-12 pb-12 sm:pb-20 border-b border-kernel-border/70">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Ambient Glassmorphic Light Reflections */}
+      <div className="glass-ambient-gold w-[420px] h-[420px] -top-24 -left-20 opacity-80" aria-hidden="true" />
+      <div className="glass-ambient-ivory w-[500px] h-[500px] top-1/3 -right-24 opacity-90" aria-hidden="true" />
+      <div className="glass-ambient-gold w-[320px] h-[320px] bottom-10 left-1/3 opacity-50" aria-hidden="true" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           {/* Left Column (55%) */}
           <div className="lg:col-span-7 space-y-6 sm:space-y-8 pr-0 lg:pr-6">
             {/* Eyebrow */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-kernel-border text-[11px] font-bold uppercase tracking-[0.18em] text-gold-accent shadow-subtle">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-pill text-[11px] font-bold uppercase tracking-[0.18em] text-gold-accent">
               <span className="w-1.5 h-1.5 rounded-full bg-kernel-gold" />
               <span>Independent Media • Curious Minds</span>
             </div>
@@ -61,14 +66,14 @@ export function HeroSection() {
             <div className="flex flex-wrap items-center gap-4 pt-1">
               <Link
                 href="/explore"
-                className="btn-gold text-sm px-7 py-3.5"
+                className="btn-gold text-sm px-7 py-3.5 shadow-md hover:shadow-lg"
               >
                 <span>Explore Content</span>
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
               <Link
                 href="/about"
-                className="btn-gold-outline text-sm px-6 py-3.5"
+                className="btn-gold-outline text-sm px-6 py-3.5 glass-pill"
               >
                 Discover Our Story
               </Link>
@@ -82,21 +87,21 @@ export function HeroSection() {
               <div className="flex flex-wrap items-center gap-2">
                 <Link
                   href="/listen"
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white hover:bg-kernel-ivory border border-kernel-border text-xs font-medium text-kernel-charcoal transition-colors"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full glass-pill text-xs font-medium text-kernel-charcoal"
                 >
                   <Headphones className="w-3.5 h-3.5 text-kernel-gold" />
                   <span>Listen</span>
                 </Link>
                 <Link
                   href="/watch"
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white hover:bg-kernel-ivory border border-kernel-border text-xs font-medium text-kernel-charcoal transition-colors"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full glass-pill text-xs font-medium text-kernel-charcoal"
                 >
                   <Play className="w-3.5 h-3.5 fill-current text-kernel-gold" />
                   <span>Watch</span>
                 </Link>
                 <Link
                   href="/read"
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white hover:bg-kernel-ivory border border-kernel-border text-xs font-medium text-kernel-charcoal transition-colors"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full glass-pill text-xs font-medium text-kernel-charcoal"
                 >
                   <BookOpen className="w-3.5 h-3.5 text-kernel-gold" />
                   <span>Read</span>
@@ -128,8 +133,8 @@ export function HeroSection() {
                 </svg>
               </div>
 
-              {/* Main Arch-Window Image */}
-              <div className="relative w-full h-full rounded-t-[140px] rounded-b-2xl overflow-hidden shadow-floating border border-kernel-border bg-white">
+              {/* Main Arch-Window Image with Glass Border */}
+              <div className="relative w-full h-full rounded-t-[140px] rounded-b-2xl overflow-hidden shadow-floating border border-white/80 bg-white/50 backdrop-blur-md">
                 <Image
                   src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=85"
                   alt="Deep mountain perspective evoking curiosity and exploration"
@@ -141,8 +146,8 @@ export function HeroSection() {
                 <div className="absolute inset-0 bg-gradient-to-t from-kernel-charcoal/60 via-transparent to-transparent" />
               </div>
 
-              {/* Overlapping Rounded-Rectangle Card (Bottom Left) */}
-              <div className="absolute -bottom-6 -left-6 w-44 h-32 rounded-2xl overflow-hidden shadow-floating border-2 border-white bg-kernel-ivory hidden sm:block">
+              {/* Overlapping Glass Card (Bottom Left) */}
+              <div className="absolute -bottom-6 -left-6 w-44 h-32 rounded-2xl overflow-hidden shadow-floating border-2 border-white/90 bg-white/70 backdrop-blur-md hidden sm:block">
                 <Image
                   src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=600&q=80"
                   alt="Thoughtful conversation participants"
@@ -151,13 +156,13 @@ export function HeroSection() {
                   className="object-cover"
                 />
                 <div className="absolute inset-0 bg-black/25" />
-                <span className="absolute bottom-2 left-2.5 text-[10px] font-bold text-white uppercase tracking-wider">
+                <span className="absolute bottom-2 left-2.5 text-[10px] font-bold text-white uppercase tracking-wider drop-shadow-sm">
                   Conversations
                 </span>
               </div>
 
-              {/* Floating Small Circular Badge (Top Right) */}
-              <div className="absolute -top-4 -right-4 w-24 h-24 rounded-full overflow-hidden shadow-floating border-2 border-white bg-kernel-charcoal flex items-center justify-center text-center p-2 hidden sm:flex">
+              {/* Floating Frosted Dark Glass Badge (Top Right) */}
+              <div className="absolute -top-4 -right-4 w-24 h-24 rounded-full overflow-hidden shadow-floating border-2 border-white/40 glass-dark flex items-center justify-center text-center p-2 hidden sm:flex">
                 <div className="space-y-0.5">
                   <span className="block font-serif text-xs font-bold text-kernel-gold">
                     Raw & Real
@@ -172,8 +177,8 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* Seamless Marquee Ticker of 8 Categories */}
-      <div className="mt-14 sm:mt-20 pt-4 pb-4 border-y border-kernel-border/80 bg-white/70 overflow-hidden select-none">
+      {/* Seamless Frosted Glass Marquee Ticker of 8 Categories */}
+      <div className="mt-14 sm:mt-20 pt-4 pb-4 border-y border-white/60 bg-white/60 backdrop-blur-lg shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] overflow-hidden select-none">
         <div className="animate-marquee flex items-center space-x-8">
           {[...CATEGORIES_TICKER, ...CATEGORIES_TICKER].map((cat, idx) => (
             <div key={idx} className="flex items-center space-x-6 flex-shrink-0">

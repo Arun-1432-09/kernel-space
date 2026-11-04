@@ -55,14 +55,14 @@ export function LatestExplorationsRail({ items }: LatestExplorationsRailProps) {
           <div className="flex items-center gap-2.5">
             <button
               onClick={() => scroll("left")}
-              className="p-3 rounded-full border border-kernel-border hover:border-kernel-gold hover:bg-kernel-ivory transition-colors text-kernel-charcoal"
+              className="p-3 rounded-full glass-pill hover:bg-white transition-all text-kernel-charcoal shadow-xs hover:border-kernel-gold"
               aria-label="Scroll left"
             >
               <ArrowLeft className="w-4 h-4" />
             </button>
             <button
               onClick={() => scroll("right")}
-              className="p-3 rounded-full border border-kernel-border hover:border-kernel-gold hover:bg-kernel-ivory transition-colors text-kernel-charcoal"
+              className="p-3 rounded-full glass-pill hover:bg-white transition-all text-kernel-charcoal shadow-xs hover:border-kernel-gold"
               aria-label="Scroll right"
             >
               <ArrowRight className="w-4 h-4" />

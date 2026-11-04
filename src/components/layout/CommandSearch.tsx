@@ -81,18 +81,18 @@ export function CommandSearch({ isOpen, onClose }: CommandSearchProps) {
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-black/60 backdrop-blur-md flex flex-col items-center justify-start pt-16 sm:pt-28 px-4"
+      className="fixed inset-0 z-50 bg-kernel-charcoal/45 backdrop-blur-xl flex flex-col items-center justify-start pt-16 sm:pt-28 px-4"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
       aria-label="Search Kernel Space"
     >
       <div
-        className="w-full max-w-2xl bg-white rounded-2xl border border-kernel-border shadow-floating overflow-hidden transition-all duration-300 animate-scale-up"
+        className="w-full max-w-2xl bg-white/85 backdrop-blur-2xl rounded-2xl border border-white/80 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.25)] overflow-hidden transition-all duration-300 animate-scale-up"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Search Input Bar */}
-        <div className="relative flex items-center border-b border-kernel-border px-5 py-4">
+        <div className="relative flex items-center border-b border-white/60 bg-white/40 px-5 py-4">
           <Search className="w-5 h-5 text-kernel-grey flex-shrink-0" />
           <input
             ref={inputRef}
@@ -111,7 +111,7 @@ export function CommandSearch({ isOpen, onClose }: CommandSearchProps) {
               <X className="w-4 h-4" />
             </button>
           ) : (
-            <kbd className="hidden sm:inline-flex items-center gap-0.5 px-2 py-0.5 rounded border border-kernel-border text-[10px] text-kernel-grey uppercase font-mono">
+            <kbd className="hidden sm:inline-flex items-center gap-0.5 px-2 py-0.5 rounded border border-kernel-border/80 text-[10px] text-kernel-grey uppercase font-mono bg-white/60">
               ESC
             </kbd>
           )}
@@ -129,7 +129,7 @@ export function CommandSearch({ isOpen, onClose }: CommandSearchProps) {
                 <button
                   key={cat.id}
                   onClick={() => handleSelect(`/explore?category=${cat.slug}`)}
-                  className="flex items-center justify-between p-2.5 rounded-xl hover:bg-kernel-ivory border border-transparent hover:border-kernel-border transition-colors text-left"
+                  className="flex items-center justify-between p-2.5 rounded-xl hover:bg-white/80 hover:shadow-xs border border-transparent hover:border-white/80 transition-all text-left"
                 >
                   <span className="text-xs font-semibold text-kernel-charcoal truncate">
                     {cat.name}
@@ -151,10 +151,10 @@ export function CommandSearch({ isOpen, onClose }: CommandSearchProps) {
                   <button
                     key={item.id}
                     onClick={() => handleSelect(`/content/${item.slug}`)}
-                    className="w-full flex items-center justify-between p-3 rounded-xl hover:bg-kernel-ivory border border-transparent hover:border-kernel-border transition-colors text-left group"
+                    className="w-full flex items-center justify-between p-3 rounded-xl hover:bg-white/90 hover:shadow-xs border border-transparent hover:border-white/80 transition-all text-left group"
                   >
                     <div className="flex items-center gap-3 min-w-0">
-                      <div className="w-8 h-8 rounded-lg bg-kernel-ivory flex items-center justify-center flex-shrink-0 border border-kernel-border/60">
+                      <div className="w-8 h-8 rounded-lg glass-pill flex items-center justify-center flex-shrink-0 border border-white/80">
                         {renderTypeIcon(item.content_type)}
                       </div>
                       <div className="min-w-0">
@@ -179,7 +179,7 @@ export function CommandSearch({ isOpen, onClose }: CommandSearchProps) {
         </div>
 
         {/* Footer info */}
-        <div className="px-5 py-3 bg-kernel-ivory/80 border-t border-kernel-border flex items-center justify-between text-[11px] text-kernel-grey">
+        <div className="px-5 py-3 bg-kernel-ivory/70 backdrop-blur-md border-t border-white/60 flex items-center justify-between text-[11px] text-kernel-grey">
           <span>Search across 8 disciplines, podcasts & visual explainers</span>
           <Link
             href="/explore"

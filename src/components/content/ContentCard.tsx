@@ -59,11 +59,11 @@ export function ContentCard({
             className="object-cover group-hover:scale-105 transition-transform duration-300"
           />
           {content.is_demo && (
-            <span className="absolute top-2 left-2 bg-kernel-charcoal/80 backdrop-blur-sm text-[10px] font-semibold text-kernel-gold px-2 py-0.5 rounded uppercase tracking-wider">
+            <span className="absolute top-2 left-2 bg-black/60 backdrop-blur-md text-[10px] font-semibold text-kernel-gold px-2 py-0.5 rounded border border-white/20 uppercase tracking-wider shadow-sm">
               Demo
             </span>
           )}
-          <span className="absolute bottom-2 left-2 bg-white/90 backdrop-blur-sm text-kernel-charcoal text-xs font-medium px-2.5 py-1 rounded-md flex items-center gap-1.5 shadow-sm">
+          <span className="absolute bottom-2 left-2 glass-pill text-kernel-charcoal text-xs font-medium px-2.5 py-1 rounded-md flex items-center gap-1.5 shadow-sm">
             {renderTypeIcon()}
             <span>{typeLabels[content.content_type]}</span>
           </span>
@@ -198,11 +198,11 @@ export function ContentCard({
             className="object-cover group-hover:scale-105 transition-transform duration-300"
           />
           {content.is_demo && (
-            <span className="absolute top-2.5 left-2.5 bg-kernel-charcoal/80 backdrop-blur-sm text-[10px] font-semibold text-kernel-gold px-2 py-0.5 rounded uppercase tracking-wider">
+            <span className="absolute top-2.5 left-2.5 bg-black/60 backdrop-blur-md text-[10px] font-semibold text-kernel-gold px-2 py-0.5 rounded border border-white/20 uppercase tracking-wider shadow-sm">
               Demo
             </span>
           )}
-          <span className="absolute bottom-2.5 left-2.5 bg-white/90 backdrop-blur-sm text-kernel-charcoal text-xs font-medium px-2.5 py-1 rounded flex items-center gap-1.5 shadow-sm">
+          <span className="absolute bottom-2.5 left-2.5 glass-pill text-kernel-charcoal text-xs font-medium px-2.5 py-1 rounded flex items-center gap-1.5 shadow-sm">
             {renderTypeIcon()}
             <span>{typeLabels[content.content_type]}</span>
           </span>

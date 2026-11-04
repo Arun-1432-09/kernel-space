@@ -57,8 +57,8 @@ export function Header() {
       <header
         className={`sticky top-0 z-40 w-full transition-all duration-300 ${
           scrolled
-            ? "bg-kernel-ivory/90 backdrop-blur-md border-b border-kernel-border/80 shadow-subtle py-3"
-            : "bg-transparent py-4 sm:py-6"
+            ? "bg-white/80 backdrop-blur-xl border-b border-white/60 shadow-[0_8px_30px_rgba(36,35,33,0.04)] py-3"
+            : "bg-white/40 backdrop-blur-md border-b border-white/30 py-4 sm:py-5"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -67,7 +67,7 @@ export function Header() {
             <Logo variant="light" showTagline={false} />
 
             {/* Desktop Navigation Links Centre */}
-            <nav className="hidden lg:flex items-center space-x-8" aria-label="Main Navigation">
+            <nav className="hidden lg:flex items-center space-x-1 p-1.5 rounded-full bg-white/60 backdrop-blur-lg border border-white/80 shadow-subtle" aria-label="Main Navigation">
               {NAV_LINKS.map((link) => {
                 const isActive =
                   link.href === "/"
@@ -78,17 +78,17 @@ export function Header() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className={`relative text-sm font-medium tracking-wide transition-colors py-1 ${
+                    className={`relative text-xs uppercase tracking-wider font-semibold transition-all px-4 py-2 rounded-full ${
                       isActive
-                        ? "text-kernel-charcoal font-semibold"
-                        : "text-kernel-grey hover:text-kernel-charcoal"
+                        ? "bg-white text-kernel-charcoal shadow-sm border border-kernel-border/50"
+                        : "text-kernel-grey hover:text-kernel-charcoal hover:bg-white/50"
                     }`}
                   >
                     <span>{link.label}</span>
                     {/* Active Kernel Dot Marker */}
                     {isActive && (
                       <span
-                        className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-kernel-gold"
+                        className="inline-block ml-1.5 w-1.5 h-1.5 rounded-full bg-kernel-gold align-middle"
                         aria-hidden="true"
                       />
                     )}
@@ -103,12 +103,15 @@ export function Header() {
               <button
                 type="button"
                 onClick={() => setSearchOpen(true)}
-                className="p-2.5 rounded-full text-kernel-charcoal hover:bg-black/5 transition-colors flex items-center gap-2 border border-transparent hover:border-kernel-border/60"
+                className="px-3.5 py-2 rounded-full glass-pill text-kernel-charcoal hover:bg-white transition-all flex items-center gap-2 text-xs font-medium"
                 aria-label="Search content"
                 title="Search (/ or ⌘K)"
               >
-                <Search className="w-4 h-4 text-kernel-charcoal" />
-                <span className="hidden xl:inline text-xs text-kernel-grey font-mono">
+                <Search className="w-3.5 h-3.5 text-kernel-charcoal" />
+                <span className="text-[11px] text-kernel-grey font-mono">
+                  Search
+                </span>
+                <span className="text-[10px] bg-kernel-ivory px-1.5 py-0.5 rounded text-kernel-gold font-mono font-bold border border-kernel-border">
                   ⌘K
                 </span>
               </button>
@@ -148,7 +151,7 @@ export function Header() {
         {/* Mobile Full-Screen Overlay Navigation */}
         {mobileMenuOpen && (
           <div
-            className="fixed inset-0 top-16 z-50 bg-kernel-ivory flex flex-col justify-between p-6 sm:hidden border-t border-kernel-border animate-fade-in"
+            className="fixed inset-0 top-16 z-50 bg-kernel-ivory/95 backdrop-blur-2xl flex flex-col justify-between p-6 sm:hidden border-t border-white/80 animate-fade-in"
             role="dialog"
             aria-modal="true"
           >
