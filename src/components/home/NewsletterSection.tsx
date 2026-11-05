@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Mail, CheckCircle, AlertCircle, Loader2, ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 
 export function NewsletterSection() {
   const [email, setEmail] = useState("");
@@ -61,7 +62,13 @@ export function NewsletterSection() {
       <div className="glass-ambient-ivory w-[400px] h-[400px] -bottom-20 -right-10 opacity-50" aria-hidden="true" />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="glass-panel rounded-editorial-lg sm:rounded-editorial-xl p-8 sm:p-14 text-center space-y-6 relative overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0, y: 26 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+          className="glass-panel rounded-editorial-lg sm:rounded-editorial-xl p-8 sm:p-14 text-center space-y-6 relative overflow-hidden"
+        >
           <div className="w-12 h-12 rounded-full glass-pill flex items-center justify-center mx-auto text-kernel-gold border border-white/80 shadow-xs">
             <Mail className="w-5 h-5" />
           </div>
@@ -158,7 +165,7 @@ export function NewsletterSection() {
               We'll email you new ideas. Unsubscribe anytime with one click.
             </p>
           </form>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

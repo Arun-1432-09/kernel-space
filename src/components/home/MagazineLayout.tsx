@@ -1,7 +1,10 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Headphones, Play, BookOpen, Clock, ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 import { ContentItem } from "@/lib/types";
 import { formatDuration, formatDate } from "@/lib/utils";
 
@@ -22,7 +25,13 @@ export function MagazineLayout({ items }: MagazineLayoutProps) {
       <div className="glass-ambient-gold w-[420px] h-[420px] -top-16 -right-16 opacity-30" aria-hidden="true" />
       <div className="glass-ambient-ivory w-[400px] h-[400px] -bottom-16 -left-16 opacity-60" aria-hidden="true" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 relative z-10">
+      <motion.div
+        initial={{ opacity: 0, y: 28 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-40px" }}
+        transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 relative z-10"
+      >
         <div className="max-w-2xl space-y-3">
           <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-gold-accent">
             Curated Formats
@@ -40,7 +49,7 @@ export function MagazineLayout({ items }: MagazineLayoutProps) {
           {/* Tall Podcast Card (4 cols) with Frosted Glass Panel */}
           <Link
             href={`/content/${podcast.slug}`}
-            className="lg:col-span-4 glass-panel p-6 rounded-2xl flex flex-col justify-between group hover:border-kernel-gold transition-all duration-300"
+            className="lg:col-span-4 glass-panel p-6 rounded-2xl flex flex-col justify-between group hover:border-kernel-gold transition-all duration-300 hover:-translate-y-1 block"
           >
             <div className="space-y-4">
               <div className="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-white/70">
@@ -86,7 +95,7 @@ export function MagazineLayout({ items }: MagazineLayoutProps) {
             {/* Wide Video Card */}
             <Link
               href={`/content/${video.slug}`}
-              className="glass-card overflow-hidden group hover:border-kernel-gold transition-all duration-300 flex flex-col sm:flex-row rounded-2xl"
+              className="glass-card overflow-hidden group hover:border-kernel-gold transition-all duration-300 flex flex-col sm:flex-row rounded-2xl hover:-translate-y-1 block"
             >
               <div className="relative w-full sm:w-1/2 aspect-[16/10] sm:aspect-auto overflow-hidden bg-kernel-ivory">
                 <Image
@@ -130,7 +139,7 @@ export function MagazineLayout({ items }: MagazineLayoutProps) {
                 <Link
                   key={art.id}
                   href={`/content/${art.slug}`}
-                  className="glass-card p-6 flex flex-col justify-between group hover:border-kernel-gold transition-all duration-300 rounded-2xl"
+                  className="glass-card p-6 flex flex-col justify-between group hover:border-kernel-gold transition-all duration-300 rounded-2xl hover:-translate-y-1 block"
                 >
                   <div className="space-y-2.5">
                     <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-widest text-gold-accent">
@@ -156,7 +165,7 @@ export function MagazineLayout({ items }: MagazineLayoutProps) {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

@@ -1,6 +1,9 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 
 const STEPS = [
   { num: "01", name: "Ideation", label: "Questions pitched from curiosity" },
@@ -12,9 +15,15 @@ const STEPS = [
 
 export function HowWeThinkStrip() {
   return (
-    <section className="py-16 sm:py-20 bg-white border-b border-kernel-border/70">
+    <section className="py-16 sm:py-20 bg-white border-b border-kernel-border/70 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col sm:flex-row sm:items-end justify-between gap-4"
+        >
           <div>
             <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-gold-accent">
               Rigorous Process
@@ -30,13 +39,34 @@ export function HowWeThinkStrip() {
             <span>Learn about our editorial method</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
-        </div>
+        </motion.div>
 
-        {/* 5-Step Compact Row with Frosted Glass */}
-        <div className="grid grid-cols-1 sm:grid-cols-5 gap-4">
+        {/* 5-Step Compact Row with Staggered Scroll Entrance */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-40px" }}
+          variants={{
+            hidden: {},
+            visible: {
+              transition: {
+                staggerChildren: 0.08,
+              },
+            },
+          }}
+          className="grid grid-cols-1 sm:grid-cols-5 gap-4"
+        >
           {STEPS.map((step, idx) => (
-            <div
+            <motion.div
               key={step.num}
+              variants={{
+                hidden: { opacity: 0, y: 24 },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: { duration: 0.5, ease: [0.21, 0.47, 0.32, 0.98] },
+                },
+              }}
               className="p-5 rounded-2xl glass-card relative space-y-2 group hover:border-kernel-gold hover:-translate-y-1 transition-all duration-300"
             >
               <div className="flex items-center justify-between">
@@ -55,9 +85,9 @@ export function HowWeThinkStrip() {
               <p className="text-[11px] text-kernel-grey leading-relaxed">
                 {step.label}
               </p>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

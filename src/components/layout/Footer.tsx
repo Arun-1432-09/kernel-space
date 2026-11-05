@@ -2,7 +2,6 @@
 
 import React from "react";
 import Link from "next/link";
-import { Sparkles } from "lucide-react";
 import { Logo } from "../ui/Logo";
 import { SiteSettings } from "@/lib/types";
 
@@ -136,20 +135,6 @@ export function Footer({ settings }: FooterProps) {
             <Link href="/admin" className="hover:text-gold-accent transition-colors font-semibold">
               Admin CMS
             </Link>
-            <button
-              type="button"
-              onClick={() => {
-                if (typeof window !== "undefined") {
-                  window.dispatchEvent(new CustomEvent("replay-kernel-intro"));
-                  window.scrollTo({ top: 0, behavior: "smooth" });
-                }
-              }}
-              className="hover:text-kernel-gold-deep transition-colors inline-flex items-center gap-1.5 text-gold-accent"
-              title="Replay brand opening cinematic intro"
-            >
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Replay Intro</span>
-            </button>
           </div>
         </div>
       </div>

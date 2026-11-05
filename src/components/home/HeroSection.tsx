@@ -36,7 +36,7 @@ export function HeroSection() {
               transition={{ duration: 0.6, ease: "easeOut" }}
               className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-pill text-[11px] font-bold uppercase tracking-[0.18em] text-gold-accent"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-kernel-gold animate-ping" />
+              <span className="w-1.5 h-1.5 rounded-full bg-kernel-gold shadow-[0_0_8px_rgba(198,161,91,0.8)]" />
               <span>Independent Media • Curious Minds</span>
             </motion.div>
 

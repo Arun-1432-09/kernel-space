@@ -248,3 +248,36 @@
 .animate-marquee:hover {
   animation-play-state: paused;
 }
+
+/* Smooth initial page fade-up animation */
+@keyframes smoothFadeUpIntro {
+  0% {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-smooth-fade-up {
+  animation: smoothFadeUpIntro 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Luxury slim scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #EFECE3;
+}
+::-webkit-scrollbar-thumb {
+  background: #D4CDBC;
+  border-radius: 9999px;
+  border: 2px solid #EFECE3;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #C6A15B;
+}
