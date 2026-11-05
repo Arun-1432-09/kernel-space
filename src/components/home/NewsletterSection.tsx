@@ -67,7 +67,7 @@ export function NewsletterSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-          className="glass-panel rounded-editorial-lg sm:rounded-editorial-xl p-8 sm:p-14 text-center space-y-6 relative overflow-hidden"
+          className="glass-panel rounded-editorial-lg sm:rounded-editorial-xl p-5 sm:p-10 lg:p-14 text-center space-y-6 relative overflow-hidden"
         >
           <div className="w-12 h-12 rounded-full glass-pill flex items-center justify-center mx-auto text-kernel-gold border border-white/80 shadow-xs">
             <Mail className="w-5 h-5" />

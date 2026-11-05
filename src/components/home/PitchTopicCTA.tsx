@@ -33,7 +33,7 @@ export function PitchTopicCTA() {
         <div className="pt-2">
           <Link
             href="/get-involved"
-            className="btn-gold text-xs px-7 py-3.5 inline-flex items-center gap-2 shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-transform"
+            className="btn-gold text-xs px-7 py-3.5 inline-flex items-center justify-center gap-2 shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-transform w-full sm:w-auto"
           >
             <span>Pitch a Topic to the Studio</span>
             <ArrowRight className="w-4 h-4" />

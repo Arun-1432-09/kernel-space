@@ -51,7 +51,7 @@ export function PhilosophyHighlights() {
               },
             },
           }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8"
         >
           {HIGHLIGHTS.map((item) => {
             const Icon = item.icon;
@@ -66,7 +66,7 @@ export function PhilosophyHighlights() {
                     transition: { duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98] },
                   },
                 }}
-                className="glass-card p-7 rounded-editorial flex flex-col justify-between group hover:-translate-y-1.5 transition-all duration-300"
+                className="glass-card p-5 sm:p-7 rounded-editorial flex flex-col justify-between group hover:-translate-y-1.5 transition-all duration-300"
               >
                 <div>
                   <div className="flex items-center justify-between mb-6">

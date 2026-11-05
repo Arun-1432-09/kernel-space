@@ -86,18 +86,18 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.45, ease: "easeOut" }}
-              className="flex flex-wrap items-center gap-4 pt-1"
+              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pt-1 w-full"
             >
               <Link
                 href="/explore"
-                className="btn-gold text-sm px-7 py-3.5 shadow-md hover:shadow-lg transition-transform hover:-translate-y-0.5 active:translate-y-0"
+                className="btn-gold text-sm px-7 py-3.5 shadow-md hover:shadow-lg transition-transform hover:-translate-y-0.5 active:translate-y-0 text-center justify-center w-full sm:w-auto"
               >
                 <span>Explore Content</span>
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
               <Link
                 href="/about"
-                className="btn-gold-outline text-sm px-6 py-3.5 glass-pill transition-transform hover:-translate-y-0.5 active:translate-y-0"
+                className="btn-gold-outline text-sm px-6 py-3.5 glass-pill transition-transform hover:-translate-y-0.5 active:translate-y-0 text-center justify-center w-full sm:w-auto"
               >
                 Discover Our Story
               </Link>
@@ -108,9 +108,9 @@ export function HeroSection() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.6 }}
-              className="pt-4 border-t border-kernel-border/70 flex items-center gap-3"
+              className="pt-4 border-t border-kernel-border/70 flex flex-wrap items-center gap-2 sm:gap-3"
             >
-              <span className="text-xs font-semibold text-kernel-grey uppercase tracking-wider mr-1">
+              <span className="text-xs font-semibold text-kernel-grey uppercase tracking-wider mr-1 w-full sm:w-auto">
                 Explore Formats:
               </span>
               <div className="flex flex-wrap items-center gap-2">
@@ -146,7 +146,7 @@ export function HeroSection() {
             transition={{ duration: 0.9, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-5 relative flex items-center justify-center pt-8 lg:pt-0"
           >
-            <div className="relative w-full max-w-[420px] aspect-[4/5]">
+            <div className="relative w-full max-w-[300px] sm:max-w-[420px] aspect-[4/5] mx-auto">
               {/* Thin Open Ring Orbiting slowly in background */}
               <motion.div
                 animate={{ rotate: 360 }}

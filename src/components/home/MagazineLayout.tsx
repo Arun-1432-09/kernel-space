@@ -52,7 +52,7 @@ export function MagazineLayout({ items }: MagazineLayoutProps) {
             className="lg:col-span-4 glass-panel p-6 rounded-2xl flex flex-col justify-between group hover:border-kernel-gold transition-all duration-300 hover:-translate-y-1 block"
           >
             <div className="space-y-4">
-              <div className="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-white/70">
+              <div className="relative w-full aspect-[16/10] sm:aspect-[4/5] rounded-xl overflow-hidden bg-white/70">
                 <Image
                   src={podcast.thumbnail_url}
                   alt={podcast.title}

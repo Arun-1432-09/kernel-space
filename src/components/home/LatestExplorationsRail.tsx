@@ -86,7 +86,7 @@ export function LatestExplorationsRail({ items }: LatestExplorationsRailProps) {
             <Link
               key={item.id}
               href={`/content/${item.slug}`}
-              className="group min-w-[300px] sm:min-w-[340px] max-w-[340px] flex-shrink-0 snap-start bg-kernel-ivory rounded-editorial border border-kernel-border overflow-hidden hover:border-kernel-gold/70 hover:shadow-card transition-all duration-300 flex flex-col justify-between"
+              className="group min-w-[280px] sm:min-w-[340px] max-w-[320px] sm:max-w-[340px] flex-shrink-0 snap-start bg-kernel-ivory rounded-editorial border border-kernel-border overflow-hidden hover:border-kernel-gold/70 hover:shadow-card transition-all duration-300 flex flex-col justify-between"
             >
               <div>
                 <div className="relative w-full aspect-[16/10] overflow-hidden bg-white">

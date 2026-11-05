@@ -3,8 +3,8 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Search, Menu, X, ArrowUpRight } from "lucide-react";
-import { motion } from "framer-motion";
+import { Search, Menu, X, ArrowUpRight, Compass, Sparkles } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Logo } from "../ui/Logo";
 import { CommandSearch } from "./CommandSearch";
 
@@ -15,6 +15,17 @@ const NAV_LINKS = [
   { label: "Listen", href: "/listen" },
   { label: "Read", href: "/read" },
   { label: "About", href: "/about" },
+];
+
+const CATEGORIES_QUICK = [
+  { name: "Business", slug: "business-and-startups" },
+  { name: "Tech & AI", slug: "technology-and-ai" },
+  { name: "Psychology", slug: "psychology-and-mental-health" },
+  { name: "Student Life", slug: "student-life-and-gen-z-culture" },
+  { name: "Design", slug: "design-and-creativity" },
+  { name: "Travel", slug: "travel-and-experiences" },
+  { name: "Aviation", slug: "aviation-and-automotive" },
+  { name: "Finance", slug: "finance-and-economics" },
 ];
 
 export function Header() {
@@ -48,10 +59,22 @@ export function Header() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  // Close mobile menu on route change
+  // Close mobile menu on route change & handle Escape
   useEffect(() => {
     setMobileMenuOpen(false);
   }, [pathname]);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
 
   return (
     <>
@@ -61,8 +84,8 @@ export function Header() {
         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         className={`sticky top-0 z-40 w-full transition-all duration-300 ${
           scrolled
-            ? "bg-white/80 backdrop-blur-xl border-b border-white/60 shadow-[0_8px_30px_rgba(36,35,33,0.04)] py-3"
-            : "bg-white/40 backdrop-blur-md border-b border-white/30 py-4 sm:py-5"
+            ? "bg-white/90 backdrop-blur-xl border-b border-white/60 shadow-[0_8px_30px_rgba(36,35,33,0.04)] py-3"
+            : "bg-white/60 backdrop-blur-md border-b border-white/40 py-3.5 sm:py-5"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -71,7 +94,10 @@ export function Header() {
             <Logo variant="light" showTagline={false} />
 
             {/* Desktop Navigation Links Centre */}
-            <nav className="hidden lg:flex items-center space-x-1 p-1.5 rounded-full bg-white/60 backdrop-blur-lg border border-white/80 shadow-subtle" aria-label="Main Navigation">
+            <nav
+              className="hidden lg:flex items-center space-x-1 p-1.5 rounded-full bg-white/70 backdrop-blur-lg border border-white/80 shadow-subtle"
+              aria-label="Main Navigation"
+            >
               {NAV_LINKS.map((link) => {
                 const isActive =
                   link.href === "/"
@@ -108,21 +134,19 @@ export function Header() {
                 type="button"
                 onClick={() => setSearchOpen(true)}
                 className="px-3.5 py-2 rounded-full glass-pill text-kernel-charcoal hover:bg-white transition-all flex items-center gap-2 text-xs font-medium"
-                aria-label="Search content"
-                title="Search (/ or ⌘K)"
+                aria-label="Search dispatches"
               >
-                <Search className="w-3.5 h-3.5 text-kernel-charcoal" />
-                <span className="text-[11px] text-kernel-grey font-mono">
-                  Search
-                </span>
-                <span className="text-[10px] bg-kernel-ivory px-1.5 py-0.5 rounded text-kernel-gold font-mono font-bold border border-kernel-border">
+                <Search className="w-3.5 h-3.5 text-kernel-gold" />
+                <span className="text-kernel-grey hidden md:inline">Search</span>
+                <kbd className="hidden lg:inline text-[10px] bg-black/5 px-1.5 py-0.5 rounded text-kernel-grey font-mono">
                   ⌘K
-                </span>
+                </kbd>
               </button>
 
+              {/* Small Gold CTA */}
               <Link
                 href="/explore"
-                className="btn-gold text-xs px-5 py-2.5 shadow-sm"
+                className="btn-gold text-xs px-5 py-2.5 shadow-sm hover:shadow"
               >
                 Explore Content
               </Link>
@@ -133,77 +157,177 @@ export function Header() {
               <button
                 type="button"
                 onClick={() => setSearchOpen(true)}
-                className="p-2 rounded-full text-kernel-charcoal hover:bg-black/5"
+                className="p-2.5 rounded-full text-kernel-charcoal hover:bg-black/5 active:bg-black/10 transition-colors"
                 aria-label="Search"
               >
-                <Search className="w-5 h-5" />
+                <Search className="w-5 h-5 text-kernel-charcoal" />
               </button>
 
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2 rounded-full text-kernel-charcoal hover:bg-black/5"
+                className="p-2.5 rounded-full text-kernel-charcoal hover:bg-black/5 active:bg-black/10 transition-colors"
                 aria-expanded={mobileMenuOpen}
-                aria-label="Toggle menu"
+                aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
               >
-                {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                {mobileMenuOpen ? (
+                  <X className="w-6 h-6 text-kernel-charcoal" />
+                ) : (
+                  <Menu className="w-6 h-6 text-kernel-charcoal" />
+                )}
               </button>
             </div>
           </div>
         </div>
+      </motion.header>
 
-        {/* Mobile Full-Screen Overlay Navigation */}
+      {/* Bulletproof Full-Screen Mobile Navigation Overlay (Rendered outside motion.header) */}
+      <AnimatePresence>
         {mobileMenuOpen && (
-          <div
-            className="fixed inset-0 top-16 z-50 bg-kernel-ivory/95 backdrop-blur-2xl flex flex-col justify-between p-6 sm:hidden border-t border-white/80 animate-fade-in"
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.22, ease: "easeOut" }}
+            className="fixed inset-0 z-[100] bg-[#F7F4EC] text-kernel-charcoal flex flex-col justify-between sm:hidden overflow-y-auto"
             role="dialog"
             aria-modal="true"
           >
-            <nav className="flex flex-col space-y-4 pt-4">
-              <span className="text-[10px] font-bold uppercase tracking-widest text-gold-accent mb-2">
-                Navigation
-              </span>
-              {NAV_LINKS.map((link) => {
-                const isActive =
-                  link.href === "/"
-                    ? pathname === "/"
-                    : pathname.startsWith(link.href);
+            {/* Top Bar matching main header */}
+            <div className="px-4 py-3.5 border-b border-kernel-border/70 flex items-center justify-between bg-white/70 backdrop-blur-md sticky top-0 z-10">
+              <Logo variant="light" showTagline={false} />
 
-                return (
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    setSearchOpen(true);
+                  }}
+                  className="p-2 rounded-full text-kernel-charcoal hover:bg-black/5 active:bg-black/10"
+                  aria-label="Search"
+                >
+                  <Search className="w-5 h-5" />
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="p-2 rounded-full text-kernel-charcoal hover:bg-black/5 active:bg-black/10"
+                  aria-label="Close menu"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
+            </div>
+
+            {/* Menu Links Body */}
+            <div className="px-5 py-6 space-y-7 flex-1">
+              <div>
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-gold-accent block mb-3">
+                  Navigation
+                </span>
+                <nav className="flex flex-col space-y-1">
+                  {NAV_LINKS.map((link) => {
+                    const isActive =
+                      link.href === "/"
+                        ? pathname === "/"
+                        : pathname.startsWith(link.href);
+
+                    return (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className={`font-serif text-2xl flex items-center justify-between py-3 px-2 rounded-xl transition-colors border-b border-kernel-border/50 ${
+                          isActive
+                            ? "text-kernel-gold font-bold bg-kernel-gold/5"
+                            : "text-kernel-charcoal hover:bg-black/5"
+                        }`}
+                      >
+                        <span>{link.label}</span>
+                        {isActive ? (
+                          <span className="w-2 h-2 rounded-full bg-kernel-gold mr-1" />
+                        ) : (
+                          <ArrowUpRight className="w-4 h-4 text-kernel-grey/60" />
+                        )}
+                      </Link>
+                    );
+                  })}
+                </nav>
+              </div>
+
+              {/* Quick Jump into 8 Disciplines */}
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-gold-accent">
+                    8 Disciplines
+                  </span>
                   <Link
-                    key={link.href}
-                    href={link.href}
+                    href="/explore"
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`font-serif text-2xl flex items-center justify-between py-2 border-b border-kernel-border/60 ${
-                      isActive ? "text-kernel-gold-deep font-semibold" : "text-kernel-charcoal"
-                    }`}
+                    className="text-[11px] font-semibold text-kernel-gold underline"
                   >
-                    <span>{link.label}</span>
-                    {isActive ? (
-                      <span className="w-2 h-2 rounded-full bg-kernel-gold" />
-                    ) : (
-                      <ArrowUpRight className="w-5 h-5 text-kernel-grey" />
-                    )}
+                    View All
                   </Link>
-                );
-              })}
-            </nav>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {CATEGORIES_QUICK.map((cat) => (
+                    <Link
+                      key={cat.slug}
+                      href={`/explore?category=${cat.slug}`}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="text-xs px-3 py-1.5 rounded-full bg-white border border-kernel-border/80 text-kernel-charcoal font-medium shadow-2xs hover:border-kernel-gold active:bg-kernel-gold/10"
+                    >
+                      {cat.name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
 
-            <div className="space-y-4 pt-6 border-t border-kernel-border">
+            {/* Bottom Actions */}
+            <div className="p-5 border-t border-kernel-border/70 bg-white/50 space-y-3">
               <Link
                 href="/explore"
                 onClick={() => setMobileMenuOpen(false)}
-                className="btn-gold w-full text-center py-3.5 text-sm"
+                className="btn-gold w-full text-center py-3.5 text-sm font-semibold shadow-md active:scale-[0.99] flex items-center justify-center gap-2"
               >
-                Explore Content
+                <span>Explore Content</span>
+                <Compass className="w-4 h-4" />
               </Link>
-              <div className="text-center text-xs text-kernel-grey">
+              <div className="flex items-center justify-between text-xs text-kernel-grey pt-1 px-1">
+                <Link
+                  href="/get-involved"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="hover:text-kernel-charcoal underline"
+                >
+                  Pitch a Topic
+                </Link>
+                <span>•</span>
+                <Link
+                  href="/about#process"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="hover:text-kernel-charcoal underline"
+                >
+                  How We Think
+                </Link>
+                <span>•</span>
+                <Link
+                  href="/admin"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="hover:text-kernel-charcoal underline"
+                >
+                  Admin
+                </Link>
+              </div>
+              <div className="text-center text-[11px] text-kernel-grey/80 pt-1">
                 Think Deeper. Explore Further.
               </div>
             </div>
-          </div>
+          </motion.div>
         )}
-      </motion.header>
+      </AnimatePresence>
 
       {/* Full-Screen Command Search Dialog */}
       <CommandSearch isOpen={searchOpen} onClose={() => setSearchOpen(false)} />

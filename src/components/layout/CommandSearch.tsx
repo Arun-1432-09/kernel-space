@@ -81,7 +81,7 @@ export function CommandSearch({ isOpen, onClose }: CommandSearchProps) {
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-kernel-charcoal/45 backdrop-blur-xl flex flex-col items-center justify-start pt-16 sm:pt-28 px-4"
+      className="fixed inset-0 z-[110] bg-kernel-charcoal/60 backdrop-blur-xl flex flex-col items-center justify-start pt-6 sm:pt-28 px-3 sm:px-4"
       onClick={onClose}
       role="dialog"
       aria-modal="true"

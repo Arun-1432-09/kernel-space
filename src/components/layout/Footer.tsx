@@ -144,7 +144,7 @@ export function Footer({ settings }: FooterProps) {
         className="w-full text-center select-none pointer-events-none mt-8 -mb-10 opacity-[0.04] overflow-hidden"
         aria-hidden="true"
       >
-        <span className="font-serif text-[130px] sm:text-[180px] lg:text-[240px] tracking-[0.2em] font-bold text-kernel-charcoal leading-none inline-block">
+        <span className="font-serif text-[60px] sm:text-[140px] lg:text-[220px] tracking-[0.2em] font-bold text-kernel-charcoal leading-none inline-block">
           KERNEL SPACE
         </span>
       </div>

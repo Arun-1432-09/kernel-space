@@ -28,7 +28,7 @@ export function RawAndRealPanel({ latestPodcast }: RawAndRealProps) {
         </span>
 
         {/* Signature Line */}
-        <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal text-kernel-charcoal leading-tight max-w-3xl mx-auto">
+        <h2 className="font-serif text-2xl sm:text-4xl lg:text-5xl font-normal text-kernel-charcoal leading-tight max-w-3xl mx-auto">
           &ldquo;No scripts. No pretense. Just curiosity meeting preparation.&rdquo;
         </h2>
 

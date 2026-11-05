@@ -74,7 +74,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className="min-h-screen bg-[#EFECE3] antialiased selection:bg-kernel-gold/20 selection:text-kernel-charcoal py-0 sm:py-3 relative overflow-x-hidden">
+      <body className="min-h-screen bg-[#EFECE3] antialiased selection:bg-kernel-gold/20 selection:text-kernel-charcoal py-0 sm:py-3 relative overflow-x-hidden max-w-[100vw] w-full">
         {/* Subtle Reading Scroll Progress Beam */}
         <ScrollProgress />
 
