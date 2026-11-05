@@ -93,9 +93,9 @@ export function Header() {
             {/* Logo Left */}
             <Logo variant="light" showTagline={false} />
 
-            {/* Desktop Navigation Links Centre */}
+            {/* Desktop / Tablet Navigation Links Centre */}
             <nav
-              className="hidden lg:flex items-center space-x-1 p-1.5 rounded-full bg-white/70 backdrop-blur-lg border border-white/80 shadow-subtle"
+              className="hidden md:flex items-center space-x-0.5 lg:space-x-1 p-1 lg:p-1.5 rounded-full bg-white/70 backdrop-blur-lg border border-white/80 shadow-subtle flex-shrink-0"
               aria-label="Main Navigation"
             >
               {NAV_LINKS.map((link) => {
@@ -108,7 +108,7 @@ export function Header() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className={`relative text-xs uppercase tracking-wider font-semibold transition-all px-4 py-2 rounded-full ${
+                    className={`relative text-[11px] lg:text-xs uppercase tracking-wider font-semibold transition-all px-2.5 lg:px-4 py-1.5 lg:py-2 rounded-full whitespace-nowrap ${
                       isActive
                         ? "bg-white text-kernel-charcoal shadow-sm border border-kernel-border/50"
                         : "text-kernel-grey hover:text-kernel-charcoal hover:bg-white/50"
@@ -118,7 +118,7 @@ export function Header() {
                     {/* Active Kernel Dot Marker */}
                     {isActive && (
                       <span
-                        className="inline-block ml-1.5 w-1.5 h-1.5 rounded-full bg-kernel-gold align-middle"
+                        className="inline-block ml-1 lg:ml-1.5 w-1.5 h-1.5 rounded-full bg-kernel-gold align-middle"
                         aria-hidden="true"
                       />
                     )}
@@ -127,33 +127,34 @@ export function Header() {
               })}
             </nav>
 
-            {/* Desktop Actions Right */}
-            <div className="hidden sm:flex items-center gap-3">
-              {/* Search Icon button */}
+            {/* Desktop / Tablet Actions Right */}
+            <div className="hidden md:flex items-center gap-2 lg:gap-3 flex-shrink-0">
+              {/* Search button */}
               <button
                 type="button"
                 onClick={() => setSearchOpen(true)}
-                className="px-3.5 py-2 rounded-full glass-pill text-kernel-charcoal hover:bg-white transition-all flex items-center gap-2 text-xs font-medium"
+                className="px-2.5 lg:px-3.5 py-2 rounded-full glass-pill text-kernel-charcoal hover:bg-white transition-all flex items-center gap-1.5 lg:gap-2 text-xs font-medium"
                 aria-label="Search dispatches"
               >
                 <Search className="w-3.5 h-3.5 text-kernel-gold" />
-                <span className="text-kernel-grey hidden md:inline">Search</span>
-                <kbd className="hidden lg:inline text-[10px] bg-black/5 px-1.5 py-0.5 rounded text-kernel-grey font-mono">
+                <span className="text-kernel-grey hidden lg:inline">Search</span>
+                <kbd className="hidden xl:inline text-[10px] bg-black/5 px-1.5 py-0.5 rounded text-kernel-grey font-mono">
                   ⌘K
                 </kbd>
               </button>
 
-              {/* Small Gold CTA */}
+              {/* Gold CTA button */}
               <Link
                 href="/explore"
-                className="btn-gold text-xs px-5 py-2.5 shadow-sm hover:shadow"
+                className="btn-gold text-xs px-3.5 lg:px-5 py-2 lg:py-2.5 shadow-sm hover:shadow whitespace-nowrap"
               >
-                Explore Content
+                <span>Explore</span>
+                <span className="hidden lg:inline ml-1">Content</span>
               </Link>
             </div>
 
-            {/* Mobile Actions Right */}
-            <div className="flex sm:hidden items-center gap-1.5">
+            {/* Mobile Actions Right (< 768px) */}
+            <div className="flex md:hidden items-center gap-1.5">
               <button
                 type="button"
                 onClick={() => setSearchOpen(true)}
@@ -189,7 +190,7 @@ export function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.22, ease: "easeOut" }}
-            className="fixed inset-0 z-[100] bg-[#F7F4EC] text-kernel-charcoal flex flex-col justify-between sm:hidden overflow-y-auto"
+            className="fixed inset-0 z-[100] bg-[#F7F4EC] text-kernel-charcoal flex flex-col justify-between md:hidden overflow-y-auto"
             role="dialog"
             aria-modal="true"
           >
