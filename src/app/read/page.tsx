@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { getContentList, getCategories } from "@/lib/data/queries";
 import { ContentCard } from "@/components/content/ContentCard";
+import { ScrollFadeUp } from "@/components/animations/ScrollFadeUp";
 import { BookOpen, Clock, ArrowRight } from "lucide-react";
 import { formatDate } from "@/lib/utils";
 
@@ -46,7 +47,8 @@ export default async function ReadHubPage() {
 
         {/* Featured Essay Card */}
         {featured && (
-          <div className="editorial-card overflow-hidden bg-kernel-ivory border border-kernel-border group">
+          <ScrollFadeUp>
+            <div className="editorial-card overflow-hidden bg-kernel-ivory border border-kernel-border group">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch">
               <div className="lg:col-span-7 relative aspect-[16/10] lg:aspect-auto min-h-[300px]">
                 <Image
@@ -101,7 +103,8 @@ export default async function ReadHubPage() {
               </div>
             </div>
           </div>
-        )}
+        </ScrollFadeUp>
+      )}
 
         {/* Category Pills Strip */}
         <div className="flex items-center gap-2 overflow-x-auto pb-2 hide-scrollbar">

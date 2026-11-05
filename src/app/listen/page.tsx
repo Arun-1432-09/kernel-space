@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getContentList } from "@/lib/data/queries";
 import { MediaEmbed } from "@/components/content/MediaEmbed";
 import { ContentCard } from "@/components/content/ContentCard";
+import { ScrollFadeUp } from "@/components/animations/ScrollFadeUp";
 import { Headphones, Clock, ArrowRight } from "lucide-react";
 import { formatDuration, formatDate } from "@/lib/utils";
 
@@ -40,54 +41,56 @@ export default async function ListenPage() {
 
         {/* Featured Episode Section */}
         {featuredEpisode && (
-          <div className="bg-kernel-ivory/60 rounded-3xl p-6 sm:p-10 border border-kernel-border space-y-6">
-            <span className="text-xs font-bold uppercase tracking-wider text-kernel-gold">
-              Featured Audio Dialogue
-            </span>
+          <ScrollFadeUp>
+            <div className="bg-kernel-ivory/60 rounded-3xl p-6 sm:p-10 border border-kernel-border space-y-6">
+              <span className="text-xs font-bold uppercase tracking-wider text-kernel-gold">
+                Featured Audio Dialogue
+              </span>
 
-            {/* Spotify Audio Embed (Embeds ONLY when valid Spotify URL supplied) */}
-            {featuredEpisode.media_url ? (
-              <MediaEmbed
-                mediaUrl={featuredEpisode.media_url}
-                title={featuredEpisode.title}
-              />
-            ) : null}
+              {/* Spotify Audio Embed (Embeds ONLY when valid Spotify URL supplied) */}
+              {featuredEpisode.media_url ? (
+                <MediaEmbed
+                  mediaUrl={featuredEpisode.media_url}
+                  title={featuredEpisode.title}
+                />
+              ) : null}
 
-            <div className="pt-2 space-y-3 max-w-3xl">
-              <div className="flex items-center gap-4 text-xs text-kernel-muted">
-                {featuredEpisode.categories && featuredEpisode.categories[0] && (
-                  <span className="font-semibold text-kernel-gold uppercase">
-                    {featuredEpisode.categories[0].name}
-                  </span>
-                )}
-                {featuredEpisode.duration_seconds && (
-                  <span className="flex items-center gap-1 font-medium text-kernel-charcoal">
-                    <Clock className="w-3 h-3 text-kernel-gold" />
-                    {formatDuration(featuredEpisode.duration_seconds)}
-                  </span>
-                )}
-                <span>{formatDate(featuredEpisode.publication_date)}</span>
-              </div>
+              <div className="pt-2 space-y-3 max-w-3xl">
+                <div className="flex items-center gap-4 text-xs text-kernel-muted">
+                  {featuredEpisode.categories && featuredEpisode.categories[0] && (
+                    <span className="font-semibold text-kernel-gold uppercase">
+                      {featuredEpisode.categories[0].name}
+                    </span>
+                  )}
+                  {featuredEpisode.duration_seconds && (
+                    <span className="flex items-center gap-1 font-medium text-kernel-charcoal">
+                      <Clock className="w-3 h-3 text-kernel-gold" />
+                      {formatDuration(featuredEpisode.duration_seconds)}
+                    </span>
+                  )}
+                  <span>{formatDate(featuredEpisode.publication_date)}</span>
+                </div>
 
-              <h2 className="text-2xl sm:text-3xl font-bold text-kernel-charcoal">
-                {featuredEpisode.title}
-              </h2>
+                <h2 className="text-2xl sm:text-3xl font-bold text-kernel-charcoal">
+                  {featuredEpisode.title}
+                </h2>
 
-              <p className="text-sm sm:text-base text-kernel-muted leading-relaxed">
-                {featuredEpisode.description}
-              </p>
+                <p className="text-sm sm:text-base text-kernel-muted leading-relaxed">
+                  {featuredEpisode.description}
+                </p>
 
-              <div className="pt-2">
-                <Link
-                  href={`/content/${featuredEpisode.slug}`}
-                  className="btn-gold inline-flex items-center gap-2 text-xs font-semibold"
-                >
-                  <span>Episode transcript and resources</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
+                <div className="pt-2">
+                  <Link
+                    href={`/content/${featuredEpisode.slug}`}
+                    className="btn-gold inline-flex items-center gap-2 text-xs font-semibold"
+                  >
+                    <span>Episode transcript and resources</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
+          </ScrollFadeUp>
         )}
 
         {/* More Episodes Grid */}

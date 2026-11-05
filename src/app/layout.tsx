@@ -3,7 +3,6 @@ import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { SupabaseNoticeBanner } from "@/components/layout/SupabaseNoticeBanner";
-import { CursorGlow } from "@/components/animations/CursorGlow";
 import { ScrollProgress } from "@/components/animations/ScrollProgress";
 import { SmoothPageEnter } from "@/components/animations/SmoothPageEnter";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
@@ -78,9 +77,6 @@ export default async function RootLayout({
       <body className="min-h-screen bg-[#EFECE3] antialiased selection:bg-kernel-gold/20 selection:text-kernel-charcoal py-0 sm:py-3 relative overflow-x-hidden">
         {/* Subtle Reading Scroll Progress Beam */}
         <ScrollProgress />
-
-        {/* Ambient Cursor Glow Follower Effect */}
-        <CursorGlow />
 
         {/* Atmospheric ambient glass light orbs */}
         <div className="glass-ambient-gold w-[600px] h-[600px] -top-32 -left-32 opacity-25" aria-hidden="true" />

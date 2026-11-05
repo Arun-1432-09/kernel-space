@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getContentList } from "@/lib/data/queries";
 import { MediaEmbed } from "@/components/content/MediaEmbed";
 import { ContentCard } from "@/components/content/ContentCard";
+import { ScrollFadeUp } from "@/components/animations/ScrollFadeUp";
 import { Play, Clock, ArrowRight } from "lucide-react";
 import { formatDuration, formatDate } from "@/lib/utils";
 
@@ -43,54 +44,56 @@ export default async function WatchPage() {
 
         {/* Featured Video Section */}
         {featuredVideo && (
-          <div className="bg-kernel-ivory/60 rounded-3xl p-6 sm:p-10 border border-kernel-border space-y-6">
-            <span className="text-xs font-bold uppercase tracking-wider text-kernel-gold">
-              Featured Visual Deep Dive
-            </span>
+          <ScrollFadeUp>
+            <div className="bg-kernel-ivory/60 rounded-3xl p-6 sm:p-10 border border-kernel-border space-y-6">
+              <span className="text-xs font-bold uppercase tracking-wider text-kernel-gold">
+                Featured Visual Deep Dive
+              </span>
 
-            {/* Media Embed: Embedded ONLY if a valid YouTube or Spotify URL is provided */}
-            {featuredVideo.media_url ? (
-              <MediaEmbed
-                mediaUrl={featuredVideo.media_url}
-                title={featuredVideo.title}
-              />
-            ) : null}
+              {/* Media Embed: Embedded ONLY if a valid YouTube or Spotify URL is provided */}
+              {featuredVideo.media_url ? (
+                <MediaEmbed
+                  mediaUrl={featuredVideo.media_url}
+                  title={featuredVideo.title}
+                />
+              ) : null}
 
-            <div className="pt-2 space-y-3 max-w-3xl">
-              <div className="flex items-center gap-4 text-xs text-kernel-muted">
-                {featuredVideo.categories && featuredVideo.categories[0] && (
-                  <span className="font-semibold text-kernel-gold uppercase">
-                    {featuredVideo.categories[0].name}
-                  </span>
-                )}
-                {featuredVideo.duration_seconds && (
-                  <span className="flex items-center gap-1">
-                    <Clock className="w-3 h-3" />
-                    {formatDuration(featuredVideo.duration_seconds)}
-                  </span>
-                )}
-                <span>{formatDate(featuredVideo.publication_date)}</span>
-              </div>
+              <div className="pt-2 space-y-3 max-w-3xl">
+                <div className="flex items-center gap-4 text-xs text-kernel-muted">
+                  {featuredVideo.categories && featuredVideo.categories[0] && (
+                    <span className="font-semibold text-kernel-gold uppercase">
+                      {featuredVideo.categories[0].name}
+                    </span>
+                  )}
+                  {featuredVideo.duration_seconds && (
+                    <span className="flex items-center gap-1">
+                      <Clock className="w-3 h-3" />
+                      {formatDuration(featuredVideo.duration_seconds)}
+                    </span>
+                  )}
+                  <span>{formatDate(featuredVideo.publication_date)}</span>
+                </div>
 
-              <h2 className="text-2xl sm:text-3xl font-bold text-kernel-charcoal">
-                {featuredVideo.title}
-              </h2>
+                <h2 className="text-2xl sm:text-3xl font-bold text-kernel-charcoal">
+                  {featuredVideo.title}
+                </h2>
 
-              <p className="text-sm sm:text-base text-kernel-muted leading-relaxed">
-                {featuredVideo.description}
-              </p>
+                <p className="text-sm sm:text-base text-kernel-muted leading-relaxed">
+                  {featuredVideo.description}
+                </p>
 
-              <div className="pt-2">
-                <Link
-                  href={`/content/${featuredVideo.slug}`}
-                  className="btn-gold inline-flex items-center gap-2 text-xs font-semibold"
-                >
-                  <span>Read full breakdown and notes</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
+                <div className="pt-2">
+                  <Link
+                    href={`/content/${featuredVideo.slug}`}
+                    className="btn-gold inline-flex items-center gap-2 text-xs font-semibold"
+                  >
+                    <span>Read full breakdown and notes</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
+          </ScrollFadeUp>
         )}
 
         {/* More Visual Breakdowns Grid */}

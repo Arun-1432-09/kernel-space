@@ -1,7 +1,10 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Play, Headphones, FileText, Sparkles, Clock, ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 import { ContentItem, ContentType } from "@/lib/types";
 import { formatDuration, formatDate } from "@/lib/utils";
 
@@ -46,7 +49,11 @@ export function ContentCard({
   // Horizontal Card Variant (Curated for Curious Minds)
   if (isHorizontal) {
     return (
-      <article
+      <motion.article
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-40px" }}
+        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
         className={`group editorial-card p-4 sm:p-5 flex flex-col sm:flex-row gap-5 items-stretch ${className}`}
       >
         {/* Thumbnail */}
@@ -110,14 +117,18 @@ export function ContentCard({
             </Link>
           </div>
         </div>
-      </article>
+      </motion.article>
     );
   }
 
   // Dark Card Variant (Dark Featured Panel #242321)
   if (isDark) {
     return (
-      <article
+      <motion.article
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-40px" }}
+        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
         className={`group bg-[#2A2926] border border-white/10 rounded-xl overflow-hidden hover:border-kernel-gold/60 transition-all duration-300 flex flex-col justify-between ${className}`}
       >
         <div>
@@ -179,13 +190,17 @@ export function ContentCard({
             <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
-      </article>
+      </motion.article>
     );
   }
 
   // Default Editorial Card Variant (Explore Grid, Watch, Listen, etc.)
   return (
-    <article
+    <motion.article
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
       className={`group editorial-card overflow-hidden flex flex-col justify-between ${className}`}
     >
       <div>
@@ -247,6 +262,6 @@ export function ContentCard({
           <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
         </Link>
       </div>
-    </article>
+    </motion.article>
   );
 }

@@ -11,10 +11,10 @@ export function StorySection() {
     <section className="py-20 sm:py-28 bg-white border-b border-kernel-border/70 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-          {/* Left: Arch-cropped Editorial Image with scroll reveal */}
+          {/* Left: Arch-cropped Editorial Image with scroll fade-up */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 32 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-5 relative flex justify-center"
@@ -39,10 +39,10 @@ export function StorySection() {
             </div>
           </motion.div>
 
-          {/* Right: Editorial Narrative with scroll reveal */}
+          {/* Right: Editorial Narrative with scroll fade-up */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 32 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-7 space-y-6"
